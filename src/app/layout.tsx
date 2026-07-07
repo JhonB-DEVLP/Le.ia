@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,9 +8,27 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const title = "lé.ia | Assistente de IA para o seu condomínio";
+const description =
+  "Até 95% das dúvidas dos moradores do condomínio solucionadas por lé.ia, sua nova assistente de IA no WhatsApp.";
+
 export const metadata: Metadata = {
-  title: "Leia",
-  description: "Landing page",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: "lé.ia",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({
@@ -19,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt-BR"
       className={`${inter.variable} h-full scroll-smooth antialiased`}
     >
       <body
