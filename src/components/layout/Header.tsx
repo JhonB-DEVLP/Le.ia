@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Planos", href: "#planos" },
   { label: "Depoimentos", href: "#depoimentos" },
   { label: "FAQ", href: "#faq" },
+  { label: "Fale Conosco", href: "#fale-conosco" },
 ];
 
 export default function Header() {

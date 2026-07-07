@@ -37,7 +37,7 @@ const features = [
 
 export default function Three() {
   return (
-    <section id="contato" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <h2 className="text-center text-2xl font-semibold sm:text-3xl">
         Simples. Rápido. Fácil. Barato.
       </h2>

@@ -3,7 +3,7 @@ const links = [
   { label: "Tutoriais", href: "#" },
   { label: "Documentação API", href: "#" },
   { label: "Ajuda", href: "#" },
-  { label: "Fale Conosco", href: "#" },
+  { label: "Fale Conosco", href: "#fale-conosco" },
   { label: "Status", href: "#" },
   { label: "Parceria", href: "#" },
 ];
