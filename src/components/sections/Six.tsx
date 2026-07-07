@@ -61,27 +61,27 @@ export default function Six() {
   ]);
 
   return (
-    <section id="depoimentos" className="py-16">
-      <h2 className="px-6 text-center text-3xl font-semibold">
+    <section id="depoimentos" className="py-10 sm:py-16">
+      <h2 className="px-4 text-center text-2xl font-semibold sm:px-6 sm:text-3xl">
         Quem usa indica a lé.ia
       </h2>
 
       <div
-        className="relative mt-12 left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden"
+        className="relative mt-10 left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden sm:mt-12"
         ref={emblaRef}
       >
         <div className="flex">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name + testimonial.role}
-              className="w-[65%] shrink-0 pl-6 sm:w-[30%] lg:w-[18%]"
+              className="w-[80%] shrink-0 pl-4 sm:w-[45%] sm:pl-6 md:w-[30%] lg:w-[18%]"
             >
-              <div className="flex h-full flex-col items-center rounded-2xl bg-[#E4E8FB] p-8 text-center">
-                <FaQuoteLeft className="h-8 w-8 text-[#4D6EFF]" />
-                <p className="mt-6 text-base text-black/80">
+              <div className="flex h-full flex-col items-center rounded-2xl bg-[#E4E8FB] p-6 text-center sm:p-8">
+                <FaQuoteLeft className="h-7 w-7 text-[#4D6EFF] sm:h-8 sm:w-8" />
+                <p className="mt-6 text-sm text-black/80 sm:text-base">
                   {testimonial.quote}
                 </p>
-                <div className="mt-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#4D6EFF] text-xl font-semibold text-white">
+                <div className="mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#4D6EFF] text-lg font-semibold text-white sm:h-16 sm:w-16 sm:text-xl">
                   {testimonial.name.charAt(0)}
                 </div>
                 <p className="mt-4 font-semibold text-black">

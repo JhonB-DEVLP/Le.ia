@@ -37,16 +37,16 @@ const features = [
 
 export default function Three() {
   return (
-    <section id="contato" className="mx-auto max-w-6xl px-6 py-16">
-      <h2 className="text-center text-3xl font-semibold">
+    <section id="contato" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <h2 className="text-center text-2xl font-semibold sm:text-3xl">
         Simples. Rápido. Fácil. Barato.
       </h2>
 
-      <div className="mt-16 flex flex-col gap-16">
+      <div className="mt-10 flex flex-col gap-12 sm:mt-16 sm:gap-16">
         {features.map((feature) => (
           <div
             key={feature.title}
-            className="grid grid-cols-1 items-center gap-10 md:grid-cols-2"
+            className="grid grid-cols-1 items-center gap-6 sm:gap-10 md:grid-cols-2"
           >
             <div
               className={
@@ -67,7 +67,7 @@ export default function Three() {
                 feature.imageSide === "right" ? "order-2 md:order-1" : "order-2"
               }
             >
-              <h3 className="text-3xl font-bold">
+              <h3 className="text-2xl font-bold sm:text-3xl">
                 {feature.title.split("lé.ia").map((part, i, arr) =>
                   i < arr.length - 1 ? (
                     <span key={i}>

@@ -42,7 +42,7 @@ export default function Four() {
   const current = audiences.find((a) => a.key === selected)!;
 
   return (
-    <section className="mx-auto max-w-6xl px-8 py-16">
+    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-8 sm:py-16">
       <div className="relative">
         <div
           className="rounded-3xl"
@@ -50,15 +50,15 @@ export default function Four() {
             background: "linear-gradient(to bottom, #4D6EFF, #3C4E9F)",
           }}
         >
-          <div className="px-10 pt-14 md:px-14 md:pt-20">
+          <div className="px-4 pt-8 sm:px-10 sm:pt-14 md:px-14 md:pt-20">
             <div className="flex justify-center">
-              <div className="inline-flex rounded-full border border-white/70 p-1">
+              <div className="inline-flex flex-col gap-1 rounded-3xl border border-white/70 p-1 sm:flex-row sm:rounded-full">
                 {audiences.map((audience) => (
                   <button
                     key={audience.key}
                     type="button"
                     onClick={() => setSelected(audience.key)}
-                    className={`whitespace-pre-line rounded-full px-6 py-3 text-center text-sm font-medium transition-colors ${
+                    className={`cursor-pointer whitespace-pre-line rounded-full px-4 py-2.5 text-center text-xs font-medium transition-colors sm:px-6 sm:py-3 sm:text-sm ${
                       selected === audience.key
                         ? "bg-white text-[#2440C4]"
                         : "text-white"
@@ -71,7 +71,7 @@ export default function Four() {
             </div>
           </div>
 
-          <div className="flex min-h-144 flex-col md:flex-row md:items-center">
+          <div className="flex flex-col md:min-h-144 md:flex-row md:items-center">
             <div
               className={`hidden md:block md:w-2/5 ${
                 current.imageSide === "right" ? "order-2" : "order-1"
@@ -80,23 +80,33 @@ export default function Four() {
             />
 
             <div
-              className={`w-full px-10 pb-10 text-white md:w-3/5 md:py-14 ${
+              className={`w-full px-6 pt-6 pb-6 text-white sm:px-10 md:w-3/5 md:pb-0 md:py-14 ${
                 current.imageSide === "right"
                   ? "order-1 md:pl-24 md:pr-0"
                   : "order-2 md:pr-6 md:pl-0"
               }`}
             >
-              <h3 className="text-2xl font-bold whitespace-pre-line md:text-3xl">
+              <h3 className="text-xl font-bold whitespace-pre-line sm:text-2xl md:text-3xl">
                 {current.title}
               </h3>
               <ul className="mt-6 space-y-3">
                 {current.bullets.map((bullet) => (
-                  <li key={bullet} className="text-lg text-white/90">
+                  <li key={bullet} className="text-base text-white/90 sm:text-lg">
                     {bullet}
                   </li>
                 ))}
               </ul>
             </div>
+          </div>
+
+          <div className="md:hidden">
+            <Image
+              src={current.image}
+              alt={current.title}
+              width={403}
+              height={368}
+              className="mx-auto h-auto w-full max-w-xs object-bottom"
+            />
           </div>
         </div>
 
@@ -114,16 +124,6 @@ export default function Four() {
             width={403}
             height={368}
             className="h-full w-full object-contain object-bottom"
-          />
-        </div>
-
-        <div className="mt-6 md:hidden">
-          <Image
-            src={current.image}
-            alt={current.title}
-            width={403}
-            height={368}
-            className="mx-auto h-auto w-full max-w-sm"
           />
         </div>
       </div>

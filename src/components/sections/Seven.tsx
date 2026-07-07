@@ -67,8 +67,8 @@ const extras = [
 
 export default function Seven() {
   return (
-    <section id="planos" className="mx-auto max-w-6xl px-6 py-16">
-      <h2 className="text-center text-3xl font-semibold">
+    <section id="planos" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <h2 className="text-center text-2xl font-semibold sm:text-3xl">
         Economia de até 4 mil reais mês
       </h2>
       <p className="mx-auto mt-4 max-w-3xl text-center text-base text-black/70">
@@ -78,11 +78,11 @@ export default function Seven() {
         para respondê-los.
       </p>
 
-      <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:gap-8 md:grid-cols-3">
         {plans.map((plan) => (
           <div
             key={plan.name}
-            className={`flex flex-col rounded-2xl bg-white p-8 shadow-md ${
+            className={`flex flex-col rounded-2xl bg-white p-6 shadow-md sm:p-8 ${
               plan.highlighted
                 ? "border-2 border-[#4D6EFF]"
                 : "border border-black/5"
@@ -127,7 +127,7 @@ export default function Seven() {
 
             <button
               type="button"
-              className="mx-auto mt-8 rounded-[5px] bg-[#4D6EFF] px-8 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
+              className="mx-auto mt-8 cursor-pointer rounded-[5px] bg-[#4D6EFF] px-8 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
             >
               Contratar
             </button>
@@ -135,17 +135,17 @@ export default function Seven() {
         ))}
       </div>
 
-      <h3 className="mt-20 text-center text-2xl font-semibold">
+      <h3 className="mt-14 text-center text-xl font-semibold sm:mt-20 sm:text-2xl">
         Outros serviços e produtos
       </h3>
 
-      <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:gap-8 md:grid-cols-3">
         {extras.map((extra) => (
           <div
             key={extra.name}
-            className="flex flex-col rounded-2xl border border-black/5 bg-white p-8 shadow-md"
+            className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-md sm:p-8"
           >
-            <h4 className="whitespace-pre-line text-center text-xl font-bold tracking-widest text-[#4D6EFF] uppercase">
+            <h4 className="whitespace-pre-line text-center text-lg font-bold tracking-widest text-[#4D6EFF] uppercase sm:text-xl">
               {extra.name}
             </h4>
 
@@ -166,17 +166,17 @@ export default function Seven() {
         ))}
       </div>
 
-      <div className="mt-20 flex flex-col overflow-hidden rounded-3xl shadow-md md:flex-row">
-        <div className="relative h-48 w-full md:h-auto md:w-2/5">
+      <div className="mt-14 flex flex-col overflow-hidden rounded-3xl shadow-md sm:mt-20 md:flex-row">
+        <div className="relative h-72 w-full md:h-auto md:w-2/5">
           <Image
             src="/Seven/Imagem.jpg"
             alt="Equipe reunida discutindo a gestão do condomínio"
             fill
-            className="object-cover"
+            className="object-cover object-top"
           />
         </div>
 
-        <div className="w-full bg-[#0A2472] px-8 py-10 md:w-3/5 md:px-14 md:py-14">
+        <div className="w-full bg-[#0A2472] px-6 py-8 sm:px-8 sm:py-10 md:w-3/5 md:px-14 md:py-14">
           <svg
             width="140"
             height="16"
@@ -197,7 +197,7 @@ export default function Seven() {
             ))}
           </svg>
 
-          <h3 className="mt-6 text-2xl font-bold text-white md:text-3xl">
+          <h3 className="mt-6 text-xl font-bold text-white sm:text-2xl md:text-3xl">
             Transforme a gestão do seu condomínio hoje mesmo
           </h3>
           <p className="mt-4 text-base text-white/80">
@@ -209,7 +209,7 @@ export default function Seven() {
             href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20falar%20com%20um%20especialista%20sobre%20a%20L%C3%A9.ia."
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-[5px] bg-linear-to-r from-[#FFC94D] to-[#FF8A2B] px-8 py-4 text-center font-bold tracking-wide text-[#1a1a1a] uppercase transition-opacity hover:opacity-90"
+            className="mt-8 block rounded-[5px] bg-linear-to-r from-[#FFC94D] to-[#FF8A2B] px-8 py-4 text-center font-bold tracking-wide text-[#1a1a1a] uppercase transition-opacity hover:opacity-90 sm:inline-block"
           >
             Falar com um especialista agora
           </a>

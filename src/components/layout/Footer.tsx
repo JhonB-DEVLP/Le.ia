@@ -26,7 +26,7 @@ export default function Footer() {
         background: "linear-gradient(to bottom, #4D6EFF, #3C4E9F)",
       }}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-16 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-3 sm:gap-12 sm:px-6 sm:py-16">
         <div>
           <Image src="/LogoFooter.png" alt="Logo" width={120} height={33} />
           <p className="mt-4 text-sm text-white/90">

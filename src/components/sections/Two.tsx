@@ -11,11 +11,11 @@ const technologies = [
 
 export default function Two() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-10">
-      <h2 className="text-center text-2xl font-semibold">
+    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <h2 className="text-center text-xl font-semibold sm:text-2xl">
         Desenvolvida com as melhores tecnologias do mercado
       </h2>
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:mt-10 sm:gap-x-12">
         {technologies.map((tech) => (
           <Image
             key={tech.alt}
@@ -23,13 +23,13 @@ export default function Two() {
             alt={tech.alt}
             width={tech.width}
             height={tech.height}
-            className="h-8 w-auto"
+            className="h-6 w-auto sm:h-8"
           />
         ))}
       </div>
 
-      <div className="mt-16 grid grid-cols-1 items-center gap-10 md:grid-cols-[3fr_2fr]">
-        <div className="mx-auto w-full max-w-lg">
+      <div className="mt-12 grid grid-cols-1 items-center gap-8 sm:mt-16 sm:gap-10 md:grid-cols-[3fr_2fr]">
+        <div className="mx-auto w-full max-w-xs sm:max-w-lg">
           <Image
             src="/Qrcode.svg"
             alt="QR code para testar a lé.ia"
@@ -39,8 +39,8 @@ export default function Two() {
           />
         </div>
 
-        <div>
-          <h3 className="text-3xl font-bold">
+        <div className="text-center md:text-left">
+          <h3 className="text-2xl font-bold sm:text-3xl">
             Teste a <span className="text-[#4D6EFF]">lé.ia</span> e descubra
             todo o seu poder
           </h3>
@@ -51,7 +51,7 @@ export default function Two() {
           </p>
           <button
             type="button"
-            className="mt-6 rounded-[5px] bg-[#4D6EFF] px-6 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
+            className="mt-6 w-full cursor-pointer rounded-[5px] bg-[#4D6EFF] px-6 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6] sm:w-auto"
           >
             Conversar
           </button>

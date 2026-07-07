@@ -34,22 +34,22 @@ const cards: { icon: IconType; label: string }[] = [
 
 export default function Five() {
   return (
-    <section id="funcionalidades" className="mx-auto max-w-6xl px-6 py-16">
-      <h2 className="text-center text-3xl font-semibold">
+    <section id="funcionalidades" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <h2 className="text-center text-2xl font-semibold sm:text-3xl">
         A assistente inteligente do administrador inteligente.
       </h2>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 md:grid-cols-3">
         {cards.map((card) => (
           <div
             key={card.label}
-            className="flex flex-col items-center justify-center gap-4 rounded-2xl px-6 py-10 text-center text-white"
+            className="flex flex-col items-center justify-center gap-4 rounded-2xl px-6 py-8 text-center text-white sm:py-10"
             style={{
               background: "linear-gradient(to bottom, #4D6EFF, #3C4E9F)",
             }}
           >
-            <card.icon className="h-10 w-10" />
-            <p className="whitespace-pre-line text-lg font-medium">
+            <card.icon className="h-9 w-9 sm:h-10 sm:w-10" />
+            <p className="whitespace-pre-line text-base font-medium sm:text-lg">
               {card.label}
             </p>
           </div>

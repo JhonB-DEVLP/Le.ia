@@ -33,8 +33,8 @@ const faqs = [
 
 export default function Eight() {
   return (
-    <section id="faq" className="mx-auto max-w-3xl px-6 py-16">
-      <h2 className="text-center text-3xl font-semibold">
+    <section id="faq" className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
+      <h2 className="text-center text-2xl font-semibold sm:text-3xl">
         Perguntas frequentes
       </h2>
 
@@ -42,7 +42,7 @@ export default function Eight() {
         type="single"
         collapsible
         defaultValue={faqs[0].question}
-        className="mt-12 flex flex-col gap-4"
+        className="mt-10 flex flex-col gap-4 sm:mt-12"
       >
         {faqs.map((faq) => (
           <Accordion.Item
@@ -51,14 +51,14 @@ export default function Eight() {
             className="rounded-2xl border border-black/10"
           >
             <Accordion.Header>
-              <Accordion.Trigger className="group flex w-full items-center justify-between gap-4 px-6 py-5 text-left">
+              <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between gap-4 px-4 py-4 text-left sm:px-6 sm:py-5">
                 <span className="font-semibold text-black">
                   {faq.question}
                 </span>
                 <HiChevronDown className="h-5 w-5 shrink-0 text-[#4D6EFF] transition-transform duration-300 group-data-[state=open]:rotate-180" />
               </Accordion.Trigger>
             </Accordion.Header>
-            <Accordion.Content className="overflow-hidden px-6 text-base text-black/70 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+            <Accordion.Content className="overflow-hidden px-4 text-base text-black/70 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down sm:px-6">
               <p className="pb-5">{faq.answer}</p>
             </Accordion.Content>
           </Accordion.Item>
