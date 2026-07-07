@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="funcionalidades" className="mx-auto max-w-6xl px-6 py-16">
+    <section className="mx-auto max-w-6xl px-6 py-16">
       <p className="text-center text-4xl font-semibold">
         Até <span className="text-[#4D6EFF]">95%</span> das dúvidas dos
         moradores do condomínio solucionadas por{" "}
@@ -13,7 +13,7 @@ export default function Hero() {
         questionamento agora é uma escolha sua.
       </p>
       <Image
-        src="/ImageHero.png"
+        src="/ImageHero.svg"
         alt="lé.ia"
         width={2574}
         height={1632}

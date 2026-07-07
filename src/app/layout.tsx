@@ -20,9 +20,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased`}
+      className={`${inter.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+      <body
+        className="flex min-h-full flex-col overflow-x-clip"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

@@ -34,7 +34,7 @@ const cards: { icon: IconType; label: string }[] = [
 
 export default function Five() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
+    <section id="funcionalidades" className="mx-auto max-w-6xl px-6 py-16">
       <h2 className="text-center text-3xl font-semibold">
         A assistente inteligente do administrador inteligente.
       </h2>
