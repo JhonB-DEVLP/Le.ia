@@ -68,7 +68,7 @@ export default function Header() {
 
         <div className="hidden items-center gap-4 text-sm lg:flex">
           <Link
-            href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20para%20conhecer%20melhor%20a%20L%C3%A9.ia."
+            href="https://wa.me/351910419459?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20para%20conhecer%20melhor%20a%20L%C3%A9.ia."
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-[5px] border border-[#4D6EFF] px-5 py-2 font-medium text-[#4D6EFF] transition-colors hover:bg-[#4D6EFF]/10"
@@ -119,7 +119,7 @@ export default function Header() {
 
           <div className="flex flex-col gap-3 px-4 pb-6 text-sm">
             <Link
-              href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20para%20conhecer%20melhor%20a%20L%C3%A9.ia."
+              href="https://wa.me/351910419459?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20para%20conhecer%20melhor%20a%20L%C3%A9.ia."
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}

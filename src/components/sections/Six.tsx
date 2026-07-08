@@ -14,19 +14,19 @@ const testimonials = [
   {
     quote:
       "O morador não quer esperar, sempre que ele entra em contato tem urgência. Atendemos 320 edifícios, são mais de 10 mil unidades, o trabalho braçal antes de usarmos a lé.ia era descomunal.",
-    name: "Reginaldo Júnior",
+    name: "André Vasconcelos",
     role: "Sindicorp",
   },
   {
     quote:
       "O morador ficou mais feliz do que nós ficamos depois de implementarmos a IA. Sim, ela nos economiza muito trabalho, mas para o morador significa resolver as coisas muito mais rápido.",
-    name: "Reginaldo Júnior",
+    name: "Tatiana Ribeiro",
     role: "Roda Viva Administradora",
   },
   {
     quote:
       "Mês passado a lé.ia atendeu mais de 8 mil chamados dos condomínios que administramos, foram 8 mil conversas que não precisamos ter e que ainda assim o morador ficou super satisfeito.",
-    name: "Reginaldo Júnior",
+    name: "Bruno Sampaio",
     role: "SíndicoPRO",
   },
   {
@@ -77,17 +77,21 @@ export default function Six() {
               className="w-[80%] shrink-0 pl-4 sm:w-[45%] sm:pl-6 md:w-[30%] lg:w-[18%]"
             >
               <div className="flex h-full flex-col items-center rounded-2xl bg-[#E4E8FB] p-6 text-center sm:p-8">
-                <FaQuoteLeft className="h-7 w-7 text-[#4D6EFF] sm:h-8 sm:w-8" />
-                <p className="mt-6 text-sm text-black/80 sm:text-base">
-                  {testimonial.quote}
-                </p>
-                <div className="mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#4D6EFF] text-lg font-semibold text-white sm:h-16 sm:w-16 sm:text-xl">
-                  {testimonial.name.charAt(0)}
+                <div className="flex flex-col items-center">
+                  <FaQuoteLeft className="h-7 w-7 text-[#4D6EFF] sm:h-8 sm:w-8" />
+                  <p className="mt-6 text-sm text-black/80 sm:text-base">
+                    {testimonial.quote}
+                  </p>
                 </div>
-                <p className="mt-4 font-semibold text-black">
-                  {testimonial.name}
-                </p>
-                <p className="text-sm text-black/60">{testimonial.role}</p>
+                <div className="mt-auto flex flex-col items-center pt-6">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#4D6EFF] text-lg font-semibold text-white sm:h-16 sm:w-16 sm:text-xl">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <p className="mt-4 font-semibold text-black">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-sm text-black/60">{testimonial.role}</p>
+                </div>
               </div>
             </div>
           ))}

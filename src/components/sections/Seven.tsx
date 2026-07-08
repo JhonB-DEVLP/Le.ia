@@ -206,7 +206,7 @@ export default function Seven() {
           </p>
 
           <a
-            href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20falar%20com%20um%20especialista%20sobre%20a%20L%C3%A9.ia."
+            href="https://wa.me/351910419459?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20falar%20com%20um%20especialista%20sobre%20a%20L%C3%A9.ia."
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 block rounded-[5px] bg-linear-to-r from-[#FFC94D] to-[#FF8A2B] px-8 py-4 text-center font-bold tracking-wide text-[#1a1a1a] uppercase transition-opacity hover:opacity-90 sm:inline-block"
