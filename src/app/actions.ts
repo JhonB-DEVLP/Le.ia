@@ -28,7 +28,7 @@ export async function sendContactMessage(
 
   try {
     await resend.emails.send({
-      from: "lé.ia <onboarding@resend.dev>",
+      from: "léia <onboarding@resend.dev>",
       to: process.env.CONTACT_EMAIL_TO!,
       replyTo: email,
       subject: `Novo contato pelo site: ${name}`,

@@ -32,7 +32,7 @@ export default function Two() {
         <div className="mx-auto w-full max-w-xs sm:max-w-lg">
           <Image
             src="/Qrcode.svg"
-            alt="QR code para testar a lé.ia"
+            alt="QR code para testar a léia"
             width={400}
             height={400}
             className="h-auto w-full"
@@ -41,7 +41,7 @@ export default function Two() {
 
         <div className="text-center md:text-left">
           <h3 className="text-2xl font-bold sm:text-3xl">
-            Teste a <span className="text-[#4D6EFF]">lé.ia</span> e descubra
+            Teste a <span className="text-[#4D6EFF]">léia</span> e descubra
             todo o seu poder
           </h3>
           <p className="mt-4 text-base text-black/70">
@@ -49,12 +49,14 @@ export default function Two() {
             conta demonstração, veja nossa tecnologia funcionando com seus
             próprios olhos.
           </p>
-          <button
-            type="button"
-            className="mt-6 w-full cursor-pointer rounded-[5px] bg-[#4D6EFF] px-6 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6] sm:w-auto"
+          <a
+            href="https://wa.me/message/UVUN6GWKNGWWD1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block w-full cursor-pointer rounded-[5px] bg-[#4D6EFF] px-6 py-3 text-center font-medium text-white transition-colors hover:bg-[#3d5ce6] sm:w-auto"
           >
             Conversar
-          </button>
+          </a>
         </div>
       </div>
     </section>

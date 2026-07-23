@@ -7,13 +7,13 @@ import { FaQuoteLeft } from "react-icons/fa";
 const testimonials = [
   {
     quote:
-      "Tenho clientes com mais de 400 unidades, tinha dia de ter que responder mais de 200 mensagens no WhatsApp, todo mundo querendo urgência. Hoje a maior parte deles a lé.ia resolve sozinha, uma tranquilidade.",
+      "Tenho clientes com mais de 400 unidades, tinha dia de ter que responder mais de 200 mensagens no WhatsApp, todo mundo querendo urgência. Hoje a maior parte deles a léia resolve sozinha, uma tranquilidade.",
     name: "Reginaldo Júnior",
     role: "Seu Síndico",
   },
   {
     quote:
-      "O morador não quer esperar, sempre que ele entra em contato tem urgência. Atendemos 320 edifícios, são mais de 10 mil unidades, o trabalho braçal antes de usarmos a lé.ia era descomunal.",
+      "O morador não quer esperar, sempre que ele entra em contato tem urgência. Atendemos 320 edifícios, são mais de 10 mil unidades, o trabalho braçal antes de usarmos a léia era descomunal.",
     name: "André Vasconcelos",
     role: "Sindicorp",
   },
@@ -25,7 +25,7 @@ const testimonials = [
   },
   {
     quote:
-      "Mês passado a lé.ia atendeu mais de 8 mil chamados dos condomínios que administramos, foram 8 mil conversas que não precisamos ter e que ainda assim o morador ficou super satisfeito.",
+      "Mês passado a léia atendeu mais de 8 mil chamados dos condomínios que administramos, foram 8 mil conversas que não precisamos ter e que ainda assim o morador ficou super satisfeito.",
     name: "Bruno Sampaio",
     role: "SíndicoPRO",
   },
@@ -37,13 +37,13 @@ const testimonials = [
   },
   {
     quote:
-      "A maior surpresa foi a queda nas ligações fora de hora. A lé.ia filtra o que é realmente urgente e só nos aciona quando precisa de fato de uma pessoa, o resto ela resolve sozinha.",
+      "A maior surpresa foi a queda nas ligações fora de hora. A léia filtra o que é realmente urgente e só nos aciona quando precisa de fato de uma pessoa, o resto ela resolve sozinha.",
     name: "Carlos Eduardo Matos",
     role: "Matos Condomínios",
   },
   {
     quote:
-      "Hoje conseguimos crescer a carteira sem contratar mais gente para o atendimento. A lé.ia absorveu o volume que antes exigiria pelo menos mais três pessoas na operação.",
+      "Hoje conseguimos crescer a carteira sem contratar mais gente para o atendimento. A léia absorveu o volume que antes exigiria pelo menos mais três pessoas na operação.",
     name: "Fernanda Brioli",
     role: "Brioli Administradora",
   },
@@ -63,7 +63,7 @@ export default function Six() {
   return (
     <section id="depoimentos" className="py-10 sm:py-16">
       <h2 className="px-4 text-center text-2xl font-semibold sm:px-6 sm:text-3xl">
-        Quem usa indica a lé.ia
+        Quem usa indica a léia
       </h2>
 
       <div

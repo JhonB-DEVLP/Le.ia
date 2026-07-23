@@ -9,7 +9,7 @@ const audiences = [
     label: "Administradoras e\nsíndicos profissionais",
     image: "/Four/image 36.svg",
     imageSide: "left",
-    title: "A lé.ia economizando tempo, dinheiro e estresse.",
+    title: "A léia economizando tempo, dinheiro e estresse.",
     bullets: [
       "Um único número de WhatsApp para atender diversos condomínios.",
       "Bases de dados separadas para cada condomínio atendido.",
@@ -23,7 +23,7 @@ const audiences = [
     label: "Síndicos e\nsub-síndicos",
     image: "/Four/image 37.svg",
     imageSide: "right",
-    title: "A lé.ia resolvendo até 90% dos chamados diários.",
+    title: "A léia resolvendo até 90% dos chamados diários.",
     bullets: [
       "Disponível 24/7 por WhatsApp para atender os moradores.",
       "Regras, regulamento, informações e documentos sempre disponíveis.",

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { whatsappLink, whatsappMessages } from "@/lib/site";
 
 const plans = [
   {
@@ -65,14 +66,18 @@ const extras = [
   },
 ];
 
-export default function Seven() {
+export default function Seven({
+  whatsappHref = whatsappLink(whatsappMessages.especialista),
+}: {
+  whatsappHref?: string;
+}) {
   return (
     <section id="planos" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <h2 className="text-center text-2xl font-semibold sm:text-3xl">
         Economia de até 4 mil reais mês
       </h2>
       <p className="mx-auto mt-4 max-w-3xl text-center text-base text-black/70">
-        A economia gerada pelo uso do lé.ia é prorcional ao volume de
+        A economia gerada pelo uso do léia é prorcional ao volume de
         contatos diários no WhatsApp que, em alguns casos, podem ultrapassar
         100 contatos dia, contabilizando até 4h diárias de trabalho apenas
         para respondê-los.
@@ -206,7 +211,7 @@ export default function Seven() {
           </p>
 
           <a
-            href="https://wa.me/351910419459?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20falar%20com%20um%20especialista%20sobre%20a%20L%C3%A9.ia."
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 block rounded-[5px] bg-linear-to-r from-[#FFC94D] to-[#FF8A2B] px-8 py-4 text-center font-bold tracking-wide text-[#1a1a1a] uppercase transition-opacity hover:opacity-90 sm:inline-block"

@@ -15,7 +15,7 @@ const features = [
     imageSide: "right",
     title: "A eficiência da IA e a empatia do humano",
     description:
-      "Algumas vezes o morador precisa falar com um humano, seja pelo nível de urgência, seja por uma necessidade específica. Isso não é um problema para a lé.ia, que avisa às pessoas cadastradas a necessidade dessa interação.",
+      "Algumas vezes o morador precisa falar com um humano, seja pelo nível de urgência, seja por uma necessidade específica. Isso não é um problema para a léia, que avisa às pessoas cadastradas a necessidade dessa interação.",
   },
   {
     image: "/Three/image 11.svg",
@@ -31,7 +31,7 @@ const features = [
     imageSide: "right",
     title: "Sempre a informação mais atual para seu cliente",
     description:
-      "A lé.ia extrai suas informações de uma RAG, um banco de documentos fácil de atualizar. Convenção nova? Basta substituir na RAG. Mudança de horário? Na lei? Taxa Extra? Novidade? Em poucos segundos a informação está atualizada.",
+      "A léia extrai suas informações de uma RAG, um banco de documentos fácil de atualizar. Convenção nova? Basta substituir na RAG. Mudança de horário? Na lei? Taxa Extra? Novidade? Em poucos segundos a informação está atualizada.",
   },
 ] as const;
 
@@ -68,11 +68,11 @@ export default function Three() {
               }
             >
               <h3 className="text-2xl font-bold sm:text-3xl">
-                {feature.title.split("lé.ia").map((part, i, arr) =>
+                {feature.title.split("léia").map((part, i, arr) =>
                   i < arr.length - 1 ? (
                     <span key={i}>
                       {part}
-                      <span className="text-[#4D6EFF]">lé.ia</span>
+                      <span className="text-[#4D6EFF]">léia</span>
                     </span>
                   ) : (
                     part

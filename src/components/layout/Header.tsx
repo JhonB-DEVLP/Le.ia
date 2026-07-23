@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { whatsappLink, whatsappMessages } from "@/lib/site";
+
+const defaultContatoHref = whatsappLink(whatsappMessages.contato);
 
 const navLinks = [
   { label: "Funcionalidades", href: "#funcionalidades" },
@@ -13,7 +16,11 @@ const navLinks = [
   { label: "Fale Conosco", href: "#fale-conosco" },
 ];
 
-export default function Header() {
+export default function Header({
+  contatoHref = defaultContatoHref,
+}: {
+  contatoHref?: string;
+}) {
   const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -50,11 +57,11 @@ export default function Header() {
         <a href="#top" onClick={() => setMenuOpen(false)}>
           <Image
             src="/Logo.png"
-            alt="Logo"
+            alt="léia"
             width={144}
             height={44}
             priority
-            className="h-8 w-auto lg:h-14"
+            className="h-8 w-auto lg:h-10"
           />
         </a>
 
@@ -68,7 +75,7 @@ export default function Header() {
 
         <div className="hidden items-center gap-4 text-sm lg:flex">
           <Link
-            href="https://wa.me/351910419459?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20para%20conhecer%20melhor%20a%20L%C3%A9.ia."
+            href={contatoHref}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-[5px] border border-[#4D6EFF] px-5 py-2 font-medium text-[#4D6EFF] transition-colors hover:bg-[#4D6EFF]/10"
@@ -119,7 +126,7 @@ export default function Header() {
 
           <div className="flex flex-col gap-3 px-4 pb-6 text-sm">
             <Link
-              href="https://wa.me/351910419459?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20para%20conhecer%20melhor%20a%20L%C3%A9.ia."
+              href={contatoHref}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}

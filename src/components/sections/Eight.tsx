@@ -5,19 +5,19 @@ import { HiChevronDown } from "react-icons/hi2";
 
 const faqs = [
   {
-    question: "Preciso trocar meu número de WhatsApp para usar a lé.ia?",
+    question: "Preciso trocar meu número de WhatsApp para usar a léia?",
     answer:
-      "Não. A lé.ia se conecta ao número de WhatsApp que você já utiliza, sem precisar trocar de número ou migrar seus contatos.",
+      "Não. A léia se conecta ao número de WhatsApp que você já utiliza, sem precisar trocar de número ou migrar seus contatos.",
   },
   {
-    question: "Quanto tempo leva para configurar a lé.ia no meu condomínio?",
+    question: "Quanto tempo leva para configurar a léia no meu condomínio?",
     answer:
-      "A configuração inicial leva poucos minutos. Você define tom de voz, regras e documentos, e a lé.ia já começa a atender os moradores.",
+      "A configuração inicial leva poucos minutos. Você define tom de voz, regras e documentos, e a léia já começa a atender os moradores.",
   },
   {
     question: "O que acontece quando a IA não consegue resolver o chamado?",
     answer:
-      "A lé.ia identifica quando o assunto exige um humano e encaminha automaticamente para a pessoa responsável, sem deixar o morador sem resposta.",
+      "A léia identifica quando o assunto exige um humano e encaminha automaticamente para a pessoa responsável, sem deixar o morador sem resposta.",
   },
   {
     question: "Consigo atender mais de um condomínio com a mesma conta?",

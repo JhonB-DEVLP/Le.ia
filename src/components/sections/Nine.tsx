@@ -30,7 +30,7 @@ export default function Nine() {
       </h2>
       <p className="mx-auto mt-4 max-w-xl text-center text-base text-black/70">
         Deixe seus dados e nossa equipe comercial entra em contato para
-        apresentar a Lé.ia para o seu condomínio.
+        apresentar a Léia para o seu condomínio.
       </p>
 
       {state.status === "success" ? (
