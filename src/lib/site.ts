@@ -29,6 +29,20 @@ export function whatsappLink(message: string): string {
 }
 
 /**
+ * E-mail de contato exibido em páginas públicas (ex.: política de privacidade).
+ * É o mesmo endereço configurado em CONTACT_EMAIL_TO, que recebe o formulário.
+ */
+export const contatoEmail = "leia.ia@outlook.com";
+
+/**
+ * Dados da operadora do serviço, usados nas páginas legais.
+ */
+export const empresa = {
+  nome: "léia",
+  cnpj: "64.111.928/0001-26",
+} as const;
+
+/**
  * Dados da organização usados no JSON-LD (dados estruturados de SEO).
  * PENDENTE DE CONFIRMAÇÃO: preencha `sameAs` com os perfis de redes sociais
  * (Instagram, LinkedIn, Facebook etc.). Deixe o array vazio se ainda não houver.

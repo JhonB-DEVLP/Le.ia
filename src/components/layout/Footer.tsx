@@ -9,7 +9,7 @@ const links = [
 ];
 
 const legal = [
-  { label: "Politica de Privacidade", href: "#" },
+  { label: "Politica de Privacidade", href: "/politica-de-privacidade" },
   { label: "Termos de Serviço", href: "#" },
   { label: "Acordo Comercial", href: "#" },
   { label: "DPA", href: "#" },
