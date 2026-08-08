@@ -39,8 +39,10 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: organization.name,
   legalName: organization.legalName,
+  taxID: organization.taxID,
   url: organization.url,
   logo: organization.logo,
+  email: organization.email,
   description: organization.description,
   address: {
     "@type": "PostalAddress",

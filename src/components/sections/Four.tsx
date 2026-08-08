@@ -29,7 +29,7 @@ const audiences = [
       "Regras, regulamento, informações e documentos sempre disponíveis.",
       "Reconhece situações que precisam da ação de um humano.",
       "Gerencia reservas de áreas comuns do condomínio.",
-      "Fácil de atualizar e gerencias, com diversos relatórios diferentes.",
+      "Fácil de atualizar e gerenciar, com diversos relatórios diferentes.",
     ],
   },
 ] as const;

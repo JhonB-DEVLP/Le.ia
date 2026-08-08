@@ -1,24 +1,35 @@
+import Image from "next/image";
+import Link from "next/link";
+import {
+  appUrl,
+  contatoEmail,
+  empresa,
+  whatsappLink,
+  whatsappMessages,
+} from "@/lib/site";
+
+/**
+ * Apenas links que levam a destinos reais.
+ * NÃO adicionar item com href="#": a verificação de Tech Provider da Meta
+ * trata link morto como sinal de site incompleto/template não editado.
+ */
 const links = [
-  { label: "Sobre nós", href: "#" },
-  { label: "Tutoriais", href: "#" },
-  { label: "Documentação API", href: "#" },
-  { label: "Ajuda", href: "#" },
-  { label: "Fale Conosco", href: "#fale-conosco" },
-  { label: "Status", href: "#" },
-  { label: "Parceria", href: "#" },
+  { label: "Funcionalidades", href: "/#funcionalidades" },
+  { label: "Planos", href: "/#planos" },
+  { label: "Depoimentos", href: "/#depoimentos" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Sobre nós", href: "/sobre" },
+  { label: "Fale conosco", href: "/#fale-conosco" },
 ];
 
 const legal = [
-  { label: "Politica de Privacidade", href: "/politica-de-privacidade" },
-  { label: "Termos de Serviço", href: "#" },
-  { label: "Acordo Comercial", href: "#" },
-  { label: "DPA", href: "#" },
-  { label: "Denunciar Abuso", href: "#" },
+  { label: "Política de Privacidade", href: "/politica-de-privacidade" },
+  { label: "Termos de Uso", href: "/termos-de-uso" },
 ];
 
-import Image from "next/image";
-
 export default function Footer() {
+  const anoAtual = new Date().getFullYear();
+
   return (
     <footer
       className="w-full text-white"
@@ -29,11 +40,29 @@ export default function Footer() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-3 sm:gap-12 sm:px-6 sm:py-16">
         <div>
           <Image src="/LogoFooter.svg" alt="léia" width={120} height={33} />
-          <p className="mt-4 text-sm text-white/90">
-            Rua do Apolo, 118, sala 03
-            <br />
-            Recife Antigo, Recife, Pernambuco.
+
+          {/* Identificação da operadora: exigida pela verificação da Meta,
+              que compara a razão social do formulário com a exibida no site. */}
+          <p className="mt-4 text-sm font-medium text-white">
+            {empresa.razaoSocial}
           </p>
+          <p className="mt-1 text-sm text-white/90">CNPJ {empresa.cnpj}</p>
+
+          <address className="mt-4 text-sm not-italic text-white/90">
+            {empresa.endereco.logradouro}
+            <br />
+            {empresa.endereco.bairro}, {empresa.endereco.cidade} —{" "}
+            {empresa.endereco.estado}
+            <br />
+            {empresa.endereco.pais}
+          </address>
+
+          <a
+            href={`mailto:${contatoEmail}`}
+            className="mt-4 inline-block text-sm text-white/90 underline-offset-2 hover:underline"
+          >
+            {contatoEmail}
+          </a>
         </div>
 
         <div>
@@ -43,11 +72,31 @@ export default function Footer() {
           <ul className="mt-4 flex flex-col gap-3 text-sm">
             {links.map((link) => (
               <li key={link.label}>
-                <a href={link.href} className="hover:text-white/80">
+                <Link href={link.href} className="hover:text-white/80">
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={whatsappLink(whatsappMessages.contato)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white/80"
+              >
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a
+                href={appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white/80"
+              >
+                Acessar painel
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -58,12 +107,21 @@ export default function Footer() {
           <ul className="mt-4 flex flex-col gap-3 text-sm">
             {legal.map((link) => (
               <li key={link.label}>
-                <a href={link.href} className="hover:text-white/80">
+                <Link href={link.href} className="hover:text-white/80">
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-white/20">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+          <p className="text-xs text-white/80">
+            © {anoAtual} {empresa.razaoSocial}. Todos os direitos reservados.
+            léia é uma plataforma de {empresa.razaoSocial}.
+          </p>
         </div>
       </div>
     </footer>

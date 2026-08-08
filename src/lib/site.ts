@@ -32,15 +32,35 @@ export function whatsappLink(message: string): string {
  * E-mail de contato exibido em páginas públicas (ex.: política de privacidade).
  * É o mesmo endereço configurado em CONTACT_EMAIL_TO, que recebe o formulário.
  */
-export const contatoEmail = "leia.ia@outlook.com";
+export const contatoEmail = "contato@assistenteleia.com.br";
 
 /**
- * Dados da operadora do serviço, usados nas páginas legais.
+ * Dados da operadora do serviço, usados nas páginas legais e no rodapé.
+ *
+ * IMPORTANTE: `razaoSocial` é a entidade jurídica que opera a plataforma
+ * (Herbie IA LTDA); `nome` é o nome fantasia do produto (léia). A verificação
+ * de Tech Provider da Meta compara a razão social declarada no formulário com
+ * a exibida no site — os dois precisam bater exatamente. Não substitua a razão
+ * social pelo nome fantasia.
  */
 export const empresa = {
   nome: "léia",
+  razaoSocial: "Herbie IA LTDA",
   cnpj: "64.111.928/0001-26",
+  endereco: {
+    logradouro: "Rua do Apolo, 118, sala 03",
+    bairro: "Recife Antigo",
+    cidade: "Recife",
+    estado: "PE",
+    pais: "Brasil",
+  },
 } as const;
+
+/**
+ * URL do painel web usado pelas administradoras contratantes.
+ * Aplicação separada deste site institucional.
+ */
+export const appUrl = "https://app.assistenteleia.com.br";
 
 /**
  * Dados da organização usados no JSON-LD (dados estruturados de SEO).
@@ -49,15 +69,18 @@ export const empresa = {
  */
 export const organization = {
   name: "léia",
-  legalName: "léia",
+  // Razão social da operadora, não o nome fantasia (ver `empresa` acima).
+  legalName: empresa.razaoSocial,
+  taxID: empresa.cnpj,
   url: siteUrl,
   logo: `${siteUrl}/Logo.png`,
+  email: contatoEmail,
   description:
     "Assistente de IA no WhatsApp que resolve até 95% das dúvidas dos moradores de condomínios.",
   address: {
-    street: "Rua do Apolo, 118, sala 03",
-    locality: "Recife",
-    region: "PE",
+    street: empresa.endereco.logradouro,
+    locality: empresa.endereco.cidade,
+    region: empresa.endereco.estado,
     country: "BR",
   },
   // Ex.: ["https://www.instagram.com/...", "https://www.linkedin.com/company/..."]

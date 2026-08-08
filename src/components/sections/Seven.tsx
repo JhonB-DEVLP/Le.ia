@@ -77,7 +77,7 @@ export default function Seven({
         Economia de até 4 mil reais mês
       </h2>
       <p className="mx-auto mt-4 max-w-3xl text-center text-base text-black/70">
-        A economia gerada pelo uso do léia é prorcional ao volume de
+        A economia gerada pelo uso da léia é proporcional ao volume de
         contatos diários no WhatsApp que, em alguns casos, podem ultrapassar
         100 contatos dia, contabilizando até 4h diárias de trabalho apenas
         para respondê-los.

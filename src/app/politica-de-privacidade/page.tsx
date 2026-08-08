@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import {
+  CabecalhoLegal,
+  EmailContato as EmailContatoBase,
+  Lista,
+  Secao,
+  Termo,
+} from "@/components/legal/DocumentoLegal";
 import { contatoEmail, empresa } from "@/lib/site";
 
 const title = "Política de Privacidade | léia";
@@ -28,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-const atualizadoEm = "4 de agosto de 2026";
+const atualizadoEm = "8 de agosto de 2026";
 
 export default function PoliticaDePrivacidade() {
   return (
@@ -37,22 +44,20 @@ export default function PoliticaDePrivacidade() {
       {/* id="top": o logo do Header aponta para #top em todas as páginas. */}
       <main id="top" className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-          <h1 className="text-3xl font-semibold text-black sm:text-4xl">
-            Política de Privacidade
-          </h1>
-          <p className="mt-3 text-black/70">
-            léia — atendimento automatizado para condomínios
-          </p>
-          <p className="mt-1 text-sm text-black/50">
-            Última atualização: {atualizadoEm}
-          </p>
+          <CabecalhoLegal
+            titulo="Política de Privacidade"
+            subtitulo="léia — atendimento automatizado para condomínios"
+            atualizadoEm={atualizadoEm}
+          />
 
           <div className="mt-10 flex flex-col gap-10 leading-relaxed text-black/80">
             <p>
               Esta política descreve como a léia trata os dados pessoais de quem
               utiliza a plataforma e de quem conversa com ela pelo WhatsApp. A
-              operadora do serviço é a {empresa.nome}, inscrita no CNPJ sob o nº{" "}
-              {empresa.cnpj}.
+              plataforma léia é operada por {empresa.razaoSocial}, inscrita no
+              CNPJ sob o nº {empresa.cnpj}, com sede em{" "}
+              {empresa.endereco.logradouro}, {empresa.endereco.bairro},{" "}
+              {empresa.endereco.cidade} — {empresa.endereco.estado}.
             </p>
 
             <Secao titulo="1. Quem somos">
@@ -126,7 +131,58 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="4. Com quem compartilhamos">
+            <Secao titulo="4. Base legal do tratamento">
+              <p>
+                Tratamos dados pessoais com fundamento nas hipóteses do art. 7º
+                da Lei Geral de Proteção de Dados (Lei nº 13.709/2018):
+              </p>
+              <Lista
+                itens={[
+                  <>
+                    <Termo>Execução de contrato (art. 7º, V)</Termo> — dados
+                    cadastrais e de cobrança do condomínio ou administradora
+                    contratante, necessários para prestar o serviço.
+                  </>,
+                  <>
+                    <Termo>
+                      Legítimo interesse (art. 7º, IX)
+                    </Termo>{" "}
+                    — mensagens enviadas pelo morador ao canal de atendimento do
+                    condomínio, tratadas para responder à própria solicitação
+                    que ele iniciou, bem como registros técnicos usados para
+                    manter a segurança e o funcionamento da plataforma.
+                  </>,
+                  <>
+                    <Termo>Cumprimento de obrigação legal (art. 7º, II)</Termo>{" "}
+                    — retenção de informações quando exigida por lei ou por
+                    autoridade competente.
+                  </>,
+                ]}
+              />
+              <p>
+                Nas hipóteses baseadas em legítimo interesse, o titular pode
+                solicitar informações sobre a avaliação realizada e opor-se ao
+                tratamento pelo e-mail indicado na seção de contato.
+              </p>
+            </Secao>
+
+            <Secao titulo="5. Papéis das partes">
+              <p>
+                O condomínio ou a administradora que contrata a léia atua como{" "}
+                <Termo>controlador</Termo> dos dados dos moradores, pois define
+                a finalidade do atendimento e o conteúdo que orienta as
+                respostas. A {empresa.razaoSocial} atua como{" "}
+                <Termo>operadora</Termo>, tratando esses dados conforme as
+                instruções do contratante e as finalidades descritas nesta
+                política.
+              </p>
+              <p>
+                Em relação aos dados cadastrais do próprio contratante, a{" "}
+                {empresa.razaoSocial} atua como controladora.
+              </p>
+            </Secao>
+
+            <Secao titulo="6. Com quem compartilhamos">
               <p>
                 Compartilhamos dados apenas com os prestadores necessários para
                 o serviço funcionar, e somente na medida do necessário:
@@ -163,7 +219,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="5. Por quanto tempo guardamos">
+            <Secao titulo="7. Por quanto tempo guardamos">
               <p>
                 As conversas são mantidas enquanto o condomínio for cliente,
                 para que o histórico de atendimento permaneça disponível.
@@ -172,7 +228,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="6. Seus direitos">
+            <Secao titulo="8. Seus direitos">
               <p>
                 Nos termos da Lei Geral de Proteção de Dados (Lei nº
                 13.709/2018), você pode solicitar a qualquer momento:
@@ -193,7 +249,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="7. Como deixar de receber mensagens">
+            <Secao titulo="9. Como deixar de receber mensagens">
               <p>
                 Se você não quiser mais conversar com a assistente, basta enviar
                 &ldquo;parar&rdquo; ou &ldquo;sair&rdquo; pelo WhatsApp, ou
@@ -202,7 +258,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="8. Segurança">
+            <Secao titulo="10. Segurança">
               <p>
                 As comunicações trafegam por conexões criptografadas e o acesso
                 aos dados é restrito a quem precisa dele para operar o serviço.
@@ -212,7 +268,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="9. Crianças e adolescentes">
+            <Secao titulo="11. Crianças e adolescentes">
               <p>
                 A plataforma é destinada a maiores de 18 anos. Não coletamos
                 intencionalmente dados de crianças. Se identificarmos esse tipo
@@ -220,7 +276,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="10. Alterações desta política">
+            <Secao titulo="12. Alterações desta política">
               <p>
                 Podemos atualizar este documento. Quando houver mudança
                 relevante, a data de atualização no topo será alterada e, se
@@ -228,7 +284,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="11. Contato">
+            <Secao titulo="13. Contato">
               <p>
                 Dúvidas sobre privacidade ou sobre esta política:
                 <br />
@@ -245,43 +301,7 @@ export default function PoliticaDePrivacidade() {
   );
 }
 
-function Secao({
-  titulo,
-  children,
-}: {
-  titulo: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold text-black sm:text-2xl">{titulo}</h2>
-      {children}
-    </section>
-  );
-}
-
-function Lista({ itens }: { itens: React.ReactNode[] }) {
-  return (
-    <ul className="flex list-disc flex-col gap-2 pl-5 marker:text-[#4D6EFF]">
-      {itens.map((item, i) => (
-        <li key={i}>{item}</li>
-      ))}
-    </ul>
-  );
-}
-
-/** Destaque do rótulo que abre alguns itens de lista. */
-function Termo({ children }: { children: React.ReactNode }) {
-  return <strong className="font-medium text-black">{children}</strong>;
-}
-
+/** Atalho local: o e-mail de contato é sempre o mesmo nesta página. */
 function EmailContato() {
-  return (
-    <a
-      href={`mailto:${contatoEmail}`}
-      className="font-medium text-[#4D6EFF] hover:underline"
-    >
-      {contatoEmail}
-    </a>
-  );
+  return <EmailContatoBase email={contatoEmail} />;
 }
