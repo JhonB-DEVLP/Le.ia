@@ -1,15 +1,21 @@
 import Image from "next/image";
-import { whatsappLink, whatsappMessages } from "@/lib/site";
+import { appRoutes, whatsappLink, whatsappMessages } from "@/lib/site";
 
+/**
+ * `quota` é a franquia mensal de conversas POR NÚMERO contratado — não um
+ * total do plano. Ex.: 4 números no Plus somam 1.600 conversas/mês.
+ * Fica fora de `features` de propósito: é exibida junto do preço, já que o
+ * cliente compara preço e franquia lado a lado com a concorrência.
+ */
 const plans = [
   {
     name: "Simples",
     description:
       "Até 3 números de WhatsApp conectados com seus agentes de atendimento.",
     price: 250,
+    quota: 450,
     highlighted: true,
     features: [
-      "1000 chamados por número contratado",
       "Envio de documentos de até 5MB",
       "Recebimento de mensagens por voz",
       "Tutoriais de configuração",
@@ -19,10 +25,10 @@ const plans = [
     name: "Plus",
     description:
       "De 4 a 10 números de WhatsApp conectados com seus agentes de atendimento.",
-    price: 200,
+    price: 215,
+    quota: 400,
     highlighted: false,
     features: [
-      "1000 chamados por número contratado",
       "Envio de documentos de até 5MB",
       "Recebimento de mensagens por voz",
       "Tutoriais de configuração",
@@ -32,10 +38,10 @@ const plans = [
     name: "Profissional",
     description:
       "Mais de 11 números de WhatsApp conectados com seus agentes de atendimento.",
-    price: 150,
+    price: 200,
+    quota: 350,
     highlighted: false,
     features: [
-      "1000 chamados por número contratado",
       "Envio de documentos de até 5MB",
       "Recebimento de mensagens por voz",
       "Treinamento de configuração",
@@ -47,10 +53,10 @@ const plans = [
 
 const extras = [
   {
-    name: "Chamados\nExtras",
-    description: "1000 chamados extras",
-    price: 100,
-    priceNote: "Pagamento único",
+    name: "Conversas\nExtras",
+    description: "250 conversas extras",
+    price: 150,
+    priceNote: "Pagamento único. Válido por 30 dias.",
   },
   {
     name: "Módulo\nFinanceiro",
@@ -117,6 +123,13 @@ export default function Seven({
               </p>
             </div>
 
+            <p className="mt-6 rounded-xl bg-[#E4E8FB] px-4 py-3 text-center text-base font-semibold text-[#0A2472]">
+              {plan.quota.toLocaleString("pt-BR")} conversas
+              <span className="block text-sm font-medium text-[#0A2472]/70">
+                por número/mês
+              </span>
+            </p>
+
             <hr className="mt-6 border-black/10" />
 
             <ul className="mt-6 flex-1 space-y-4">
@@ -130,12 +143,14 @@ export default function Seven({
               ))}
             </ul>
 
-            <button
-              type="button"
-              className="mx-auto mt-8 cursor-pointer rounded-[5px] bg-[#4D6EFF] px-8 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
+            <a
+              href={appRoutes.cadastro}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-auto mt-8 rounded-[5px] bg-[#4D6EFF] px-8 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
             >
               Contratar
-            </button>
+            </a>
           </div>
         ))}
       </div>
@@ -158,14 +173,26 @@ export default function Seven({
               {extra.description}
             </p>
 
-            <div className="mt-6 text-center">
+            {/*
+              `mt-auto` ancora o bloco de preço na base do card: como as
+              descrições têm alturas diferentes (1 ou 2 linhas), sem isso os
+              preços e as notas começariam em alturas distintas entre os cards.
+            */}
+            <div className="mt-auto pt-6 text-center">
               <span className="align-top text-lg font-semibold text-black">
                 R$
               </span>
               <span className="text-5xl font-bold text-black">
                 {extra.price}
               </span>
-              <p className="mt-1 text-sm text-black/50">{extra.priceNote}</p>
+              {/*
+                Altura mínima de 2 linhas: a nota das Conversas Extras pode
+                quebrar em telas estreitas e, sem isso, o card cresceria mais
+                que os vizinhos.
+              */}
+              <p className="mt-1 min-h-10 text-sm text-black/50">
+                {extra.priceNote}
+              </p>
             </div>
           </div>
         ))}

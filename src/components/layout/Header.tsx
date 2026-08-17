@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { appUrl, whatsappLink, whatsappMessages } from "@/lib/site";
+import { appRoutes, whatsappLink, whatsappMessages } from "@/lib/site";
 
 const defaultContatoHref = whatsappLink(whatsappMessages.contato);
 
@@ -83,7 +83,7 @@ export default function Header({
             Contato
           </Link>
           <a
-            href={appUrl}
+            href={appRoutes.login}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-[5px] bg-[#4D6EFF] px-5 py-2 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
@@ -137,7 +137,7 @@ export default function Header({
               Contato
             </Link>
             <a
-              href={appUrl}
+              href={appRoutes.login}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}

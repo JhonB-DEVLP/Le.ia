@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  appUrl,
+  appRoutes,
   contatoEmail,
   empresa,
   whatsappLink,
@@ -89,7 +89,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href={appUrl}
+                href={appRoutes.login}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white/80"

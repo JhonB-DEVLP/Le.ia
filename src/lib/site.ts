@@ -63,6 +63,16 @@ export const empresa = {
 export const appUrl = "https://app.assistenteleia.com.br";
 
 /**
+ * Rotas do painel usadas nos CTAs do site.
+ * Derivadas de `appUrl` para que a troca do domínio do app continue
+ * sendo feita em um único lugar.
+ */
+export const appRoutes = {
+  cadastro: `${appUrl}/cadastro/`,
+  login: `${appUrl}/auth/login/`,
+} as const;
+
+/**
  * Dados da organização usados no JSON-LD (dados estruturados de SEO).
  * PENDENTE DE CONFIRMAÇÃO: preencha `sameAs` com os perfis de redes sociais
  * (Instagram, LinkedIn, Facebook etc.). Deixe o array vazio se ainda não houver.
