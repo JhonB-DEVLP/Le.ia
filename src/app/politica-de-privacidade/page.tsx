@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-const atualizadoEm = "23 de agosto de 2026";
+const atualizadoEm = "24 de agosto de 2026";
 
 export default function PoliticaDePrivacidade() {
   return (
@@ -240,13 +240,14 @@ export default function PoliticaDePrivacidade() {
                   </>,
                   <>
                     <Termo>A lista de agendas da conta</Termo> — apenas os
-                    nomes das agendas, para que o síndico escolha em qual delas
-                    as reservas devem entrar.
+                    nomes e identificadores das agendas, para que o síndico
+                    escolha em qual delas as reservas devem entrar.
                   </>,
                   <>
-                    <Termo>O endereço de e-mail da conta conectada</Termo> —
-                    para identificar qual conta Google foi vinculada e exibir
-                    essa informação no painel.
+                    <Termo>A criação de uma agenda nova</Termo> — quando o
+                    síndico prefere que as reservas do condomínio fiquem
+                    separadas da agenda pessoal dele, a léia cria uma agenda
+                    nova na conta, a pedido dele.
                   </>,
                 ]}
               />
@@ -255,6 +256,20 @@ export default function PoliticaDePrivacidade() {
                 Esses dados são usados exclusivamente para refletir as reservas
                 de áreas comuns do condomínio na agenda, e para nada além
                 disso.
+              </p>
+
+              <p>
+                O painel mostra de qual conta Google é a agenda conectada, para
+                que o síndico confira que vinculou a conta certa. Esse endereço
+                de e-mail vem da própria lista de agendas, que o identifica: a
+                léia <Termo>não acessa o perfil</Termo> nem os dados de
+                identidade da Conta Google, e não pede permissão para isso.
+              </p>
+
+              <p>
+                A léia solicita apenas as permissões restritas ao Google
+                Calendar descritas acima, e nenhuma delas permite apagar as
+                agendas já existentes do síndico.
               </p>
 
               <p>
