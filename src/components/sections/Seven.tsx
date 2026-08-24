@@ -2,73 +2,82 @@ import Image from "next/image";
 import { appRoutes, whatsappLink, whatsappMessages } from "@/lib/site";
 
 /**
- * `quota` é a franquia mensal de conversas POR NÚMERO contratado — não um
- * total do plano. Ex.: 4 números no Plus somam 1.600 conversas/mês.
- * Fica fora de `features` de propósito: é exibida junto do preço, já que o
- * cliente compara preço e franquia lado a lado com a concorrência.
+ * Formata valores em reais sem centavos (todos os preços da tabela são
+ * inteiros). Centraliza o separador de milhar pt-BR, usado tanto nos preços
+ * quanto nas cotas de conversas.
+ */
+const brl = (value: number) => value.toLocaleString("pt-BR");
+
+/**
+ * Os três cards de plano têm formatos de preço genuinamente diferentes —
+ * dois níveis mensais, preço unitário por faixa de volume e pacotes avulsos —
+ * então cada um declara suas próprias linhas de preço em vez de forçar um
+ * campo `price` único. `unit` é o texto ao lado do valor e é o que diferencia
+ * "R$ 380/mês" de "R$ 250 por assistente": na Administradora o valor
+ * multiplica pelo número de assistentes, não é um total fechado.
  */
 const plans = [
   {
-    name: "Simples",
+    name: "Condomínio",
     description:
-      "Até 3 números de WhatsApp conectados com seus agentes de atendimento.",
-    price: 250,
-    quota: 450,
+      "Para o condomínio que quer a léia atendendo os moradores no WhatsApp.",
     highlighted: true,
-    features: [
-      "Envio de documentos de até 5MB",
-      "Recebimento de mensagens por voz",
-      "Tutoriais de configuração",
+    rows: [
+      { price: 380, unit: "/mês", detail: "500 conversas" },
+      { price: 500, unit: "/mês", detail: "1.000 conversas" },
     ],
+    footnote: "Documentos ilimitados nos dois níveis.",
   },
   {
-    name: "Plus",
+    name: "Administradora",
     description:
-      "De 4 a 10 números de WhatsApp conectados com seus agentes de atendimento.",
-    price: 215,
-    quota: 400,
+      "Preço por assistente, com desconto por volume. Cada assistente inclui 500 conversas e documentos ilimitados.",
     highlighted: false,
-    features: [
-      "Envio de documentos de até 5MB",
-      "Recebimento de mensagens por voz",
-      "Tutoriais de configuração",
+    rows: [
+      { price: 250, unit: "por assistente", detail: "Até 10 assistentes" },
+      { price: 230, unit: "por assistente", detail: "De 11 a 20 assistentes" },
+      { price: 220, unit: "por assistente", detail: "De 21 a 30 assistentes" },
     ],
+    // Sem um total concreto, "R$ 250" é lido como preço fechado do plano.
+    footnote: "Exemplo: 10 assistentes = R$ 2.500/mês.",
   },
   {
-    name: "Profissional",
+    name: "Conversas Extras",
     description:
-      "Mais de 11 números de WhatsApp conectados com seus agentes de atendimento.",
-    price: 200,
-    quota: 350,
+      "Para quem usa toda a cota antes do fim do mês. Pacote avulso, somado à franquia do plano.",
     highlighted: false,
-    features: [
-      "Envio de documentos de até 5MB",
-      "Recebimento de mensagens por voz",
-      "Treinamento de configuração",
-      "Templates de Prompt",
-      "Suporte direto ao admin",
+    rows: [
+      { price: 200, unit: "pagamento único", detail: "500 conversas extras" },
+      { price: 380, unit: "pagamento único", detail: "1.000 conversas extras" },
     ],
+    footnote: null,
   },
 ];
 
-const extras = [
-  {
-    name: "Conversas\nExtras",
-    description: "250 conversas extras",
-    price: 150,
-    priceNote: "Pagamento único. Válido por 30 dias.",
-  },
+/**
+ * Módulos são contratados separadamente e cobrados por instância (cada
+ * condomínio/agente), somados à mensalidade do plano.
+ *
+ * `freeDays` difere entre os módulos (30 e 60) e cada período corre de forma
+ * independente, a partir da criação da conta — por isso o prazo é exibido
+ * dentro de cada card e nunca como uma frase única da seção, que sugeriria um
+ * período comum aos dois.
+ */
+const modules = [
   {
     name: "Módulo\nFinanceiro",
-    description: "Consulta de taxas e solicitação de segundas via de boletos/PIX",
+    description:
+      "Consulta de taxas e solicitação de segundas vias de boletos/PIX",
     price: 100,
     priceNote: "Por agente/condomínio",
+    freeDays: 30,
   },
   {
     name: "Módulo de\nReservas",
     description: "Recebimento de reservas via WhatsApp",
     price: 100,
     priceNote: "Por agente/condomínio",
+    freeDays: 60,
   },
 ];
 
@@ -80,13 +89,11 @@ export default function Seven({
   return (
     <section id="planos" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <h2 className="text-center text-2xl font-semibold sm:text-3xl">
-        Economia de até 4 mil reais mês
+        Planos e preços
       </h2>
       <p className="mx-auto mt-4 max-w-3xl text-center text-base text-black/70">
-        A economia gerada pelo uso da léia é proporcional ao volume de
-        contatos diários no WhatsApp que, em alguns casos, podem ultrapassar
-        100 contatos dia, contabilizando até 4h diárias de trabalho apenas
-        para respondê-los.
+        Escolha o plano do seu condomínio ou da sua administradora. Os planos
+        são mensais, sem fidelidade, e você cancela quando quiser.
       </p>
 
       <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:gap-8 md:grid-cols-3">
@@ -109,39 +116,40 @@ export default function Seven({
               {plan.description}
             </p>
 
-            <div className="mt-6 text-center">
-              <span className="align-top text-lg font-semibold text-black">
-                R$
-              </span>
-              <span className="text-5xl font-bold text-black">
-                {plan.price}
-              </span>
-              <p className="mt-1 text-sm text-black/50">
-                Por número de
-                <br />
-                WhatsApp conectado
-              </p>
+            {/*
+              `mt-auto` ancora o bloco de preços na base do card: as descrições
+              têm alturas diferentes entre os cards e, sem isso, os preços
+              começariam em alturas distintas.
+            */}
+            <div className="mt-auto space-y-4 pt-6">
+              {plan.rows.map((row) => (
+                <div
+                  key={row.detail}
+                  className="rounded-xl bg-[#E4E8FB] px-4 py-4 text-center"
+                >
+                  <p>
+                    <span className="align-top text-base font-semibold text-black">
+                      R$
+                    </span>
+                    <span className="text-4xl font-bold text-black">
+                      {brl(row.price)}
+                    </span>
+                    <span className="ml-1 text-sm font-medium text-black/60">
+                      {row.unit}
+                    </span>
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-[#0A2472]">
+                    {row.detail}
+                  </p>
+                </div>
+              ))}
             </div>
 
-            <p className="mt-6 rounded-xl bg-[#E4E8FB] px-4 py-3 text-center text-base font-semibold text-[#0A2472]">
-              {plan.quota.toLocaleString("pt-BR")} conversas
-              <span className="block text-sm font-medium text-[#0A2472]/70">
-                por número/mês
-              </span>
-            </p>
-
-            <hr className="mt-6 border-black/10" />
-
-            <ul className="mt-6 flex-1 space-y-4">
-              {plan.features.map((feature) => (
-                <li
-                  key={feature}
-                  className="text-center text-sm text-black/70"
-                >
-                  {feature}
-                </li>
-              ))}
-            </ul>
+            {plan.footnote && (
+              <p className="mt-4 text-center text-sm text-black/60">
+                {plan.footnote}
+              </p>
+            )}
 
             <a
               href={appRoutes.cadastro}
@@ -156,47 +164,53 @@ export default function Seven({
       </div>
 
       <h3 className="mt-14 text-center text-xl font-semibold sm:mt-20 sm:text-2xl">
-        Outros serviços e produtos
+        Módulos adicionais
       </h3>
+      <p className="mx-auto mt-4 max-w-3xl text-center text-base text-black/70">
+        Os módulos são contratados separadamente e cobrados por instância —
+        cada condomínio ou agente —, somados à mensalidade do plano.
+      </p>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:gap-8 md:grid-cols-3">
-        {extras.map((extra) => (
+      <div className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-6 sm:mt-12 sm:gap-8 md:grid-cols-2">
+        {modules.map((module) => (
           <div
-            key={extra.name}
+            key={module.name}
             className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-md sm:p-8"
           >
             <h4 className="whitespace-pre-line text-center text-lg font-bold tracking-widest text-[#4D6EFF] uppercase sm:text-xl">
-              {extra.name}
+              {module.name}
             </h4>
 
             <p className="mt-6 text-center font-semibold text-black">
-              {extra.description}
+              {module.description}
             </p>
 
-            {/*
-              `mt-auto` ancora o bloco de preço na base do card: como as
-              descrições têm alturas diferentes (1 ou 2 linhas), sem isso os
-              preços e as notas começariam em alturas distintas entre os cards.
-            */}
             <div className="mt-auto pt-6 text-center">
               <span className="align-top text-lg font-semibold text-black">
                 R$
               </span>
               <span className="text-5xl font-bold text-black">
-                {extra.price}
+                {brl(module.price)}
               </span>
-              {/*
-                Altura mínima de 2 linhas: a nota das Conversas Extras pode
-                quebrar em telas estreitas e, sem isso, o card cresceria mais
-                que os vizinhos.
-              */}
-              <p className="mt-1 min-h-10 text-sm text-black/50">
-                {extra.priceNote}
+              <p className="mt-1 text-sm text-black/50">{module.priceNote}</p>
+              <p className="mt-3 rounded-xl bg-[#E4E8FB] px-4 py-2 text-sm font-semibold text-[#0A2472]">
+                Grátis nos primeiros {module.freeDays} dias
               </p>
             </div>
           </div>
         ))}
       </div>
+
+      {/*
+        A dúvida previsível do visitante é o que conta como "conversa": a
+        definição fica ao pé da tabela, logo depois das cotas.
+      */}
+      <p className="mx-auto mt-10 max-w-3xl text-center text-sm text-black/60">
+        Uma conversa é o atendimento a um morador dentro de uma janela de 24
+        horas, incluindo todas as mensagens trocadas nesse período. O prazo
+        gratuito de cada módulo é independente: começa a contar quando a conta
+        é criada e termina no seu próprio prazo.
+      </p>
 
       <div className="mt-14 flex flex-col overflow-hidden rounded-3xl shadow-md sm:mt-20 md:flex-row">
         <div className="relative h-72 w-full md:h-auto md:w-2/5">
