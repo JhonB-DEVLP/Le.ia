@@ -12,7 +12,7 @@ import { contatoEmail, empresa } from "@/lib/site";
 
 const title = "Política de Privacidade | léia";
 const description =
-  "Como a léia trata os dados pessoais de condomínios contratantes e de moradores que conversam com a assistente pelo WhatsApp.";
+  "Como a léia trata os dados pessoais de condomínios contratantes, de moradores que conversam com a assistente pelo WhatsApp e os dados obtidos por meio das APIs do Google.";
 
 export const metadata: Metadata = {
   title,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-const atualizadoEm = "8 de agosto de 2026";
+const atualizadoEm = "23 de agosto de 2026";
 
 export default function PoliticaDePrivacidade() {
   return (
@@ -219,7 +219,111 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="7. Por quanto tempo guardamos">
+            <Secao titulo="7. Dados obtidos por meio das APIs do Google">
+              <p>
+                O síndico pode conectar a agenda do Google do condomínio à léia
+                para que as reservas de áreas comuns — salão de festas,
+                churrasqueira, quadra e semelhantes — apareçam automaticamente
+                no Google Calendar. Essa conexão é opcional: só acontece quando
+                o síndico conecta a conta e autoriza o acesso pelo painel da
+                léia, e pode ser desfeita quando ele quiser. Nenhum morador
+                conecta conta Google.
+              </p>
+
+              <p className="font-medium text-black">O que acessamos:</p>
+              <Lista
+                itens={[
+                  <>
+                    <Termo>Os eventos de reserva na agenda escolhida</Termo> —
+                    a léia cria, edita e apaga os eventos correspondentes às
+                    reservas de áreas comuns do condomínio.
+                  </>,
+                  <>
+                    <Termo>A lista de agendas da conta</Termo> — apenas os
+                    nomes das agendas, para que o síndico escolha em qual delas
+                    as reservas devem entrar.
+                  </>,
+                  <>
+                    <Termo>O endereço de e-mail da conta conectada</Termo> —
+                    para identificar qual conta Google foi vinculada e exibir
+                    essa informação no painel.
+                  </>,
+                ]}
+              />
+
+              <p>
+                Esses dados são usados exclusivamente para refletir as reservas
+                de áreas comuns do condomínio na agenda, e para nada além
+                disso.
+              </p>
+
+              <p>
+                Os dados obtidos por meio das APIs do Google{" "}
+                <Termo>não são vendidos</Termo>,{" "}
+                <Termo>não são usados para publicidade</Termo>,{" "}
+                <Termo>não são compartilhados com terceiros</Termo> — exceto
+                quando necessário para operar o próprio serviço ou por exigência
+                legal — e{" "}
+                <Termo>
+                  não são usados para treinar modelos de inteligência artificial
+                </Termo>
+                .
+              </p>
+
+              <p>
+                O uso e a transferência, pela léia, de informações recebidas das
+                APIs do Google obedecem à{" "}
+                <a
+                  href="https://developers.google.com/terms/api-services-user-data-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-[#4D6EFF] hover:underline"
+                >
+                  Política de Dados do Usuário dos Serviços de API do Google
+                </a>
+                , incluindo os requisitos de Uso Limitado.
+              </p>
+
+              <p className="font-medium text-black">Como revogar o acesso:</p>
+              <Lista
+                itens={[
+                  <>
+                    <Termo>Pelo painel da léia</Termo> — desconectando a agenda
+                    do Google nas configurações do condomínio;
+                  </>,
+                  <>
+                    <Termo>Pela sua Conta Google</Termo> — em{" "}
+                    <a
+                      href="https://myaccount.google.com/permissions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-[#4D6EFF] hover:underline"
+                    >
+                      myaccount.google.com/permissions
+                    </a>
+                    , removendo o acesso concedido à léia.
+                  </>,
+                ]}
+              />
+
+              <p>
+                Ao revogar o acesso por qualquer um dos caminhos, a léia deixa
+                imediatamente de escrever na agenda. Os eventos já criados
+                permanecem no Google Calendar, sob controle exclusivo do
+                síndico, que pode mantê-los ou removê-los como preferir.
+              </p>
+
+              <p>
+                O token de acesso à conta Google fica guardado apenas enquanto a
+                agenda estiver conectada, e é apagado assim que o síndico
+                desconecta a agenda ou revoga o acesso. Encerrado o contrato,
+                eventuais registros remanescentes seguem o mesmo prazo da seção
+                &ldquo;Por quanto tempo guardamos&rdquo;: exclusão ou
+                anonimização em até 90 dias.
+              </p>
+            </Secao>
+
+            <Secao titulo="8. Por quanto tempo guardamos">
               <p>
                 As conversas são mantidas enquanto o condomínio for cliente,
                 para que o histórico de atendimento permaneça disponível.
@@ -228,7 +332,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="8. Seus direitos">
+            <Secao titulo="9. Seus direitos">
               <p>
                 Nos termos da Lei Geral de Proteção de Dados (Lei nº
                 13.709/2018), você pode solicitar a qualquer momento:
@@ -249,7 +353,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="9. Como deixar de receber mensagens">
+            <Secao titulo="10. Como deixar de receber mensagens">
               <p>
                 Se você não quiser mais conversar com a assistente, basta enviar
                 &ldquo;parar&rdquo; ou &ldquo;sair&rdquo; pelo WhatsApp, ou
@@ -258,7 +362,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="10. Segurança">
+            <Secao titulo="11. Segurança">
               <p>
                 As comunicações trafegam por conexões criptografadas e o acesso
                 aos dados é restrito a quem precisa dele para operar o serviço.
@@ -268,7 +372,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="11. Crianças e adolescentes">
+            <Secao titulo="12. Crianças e adolescentes">
               <p>
                 A plataforma é destinada a maiores de 18 anos. Não coletamos
                 intencionalmente dados de crianças. Se identificarmos esse tipo
@@ -276,7 +380,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="12. Alterações desta política">
+            <Secao titulo="13. Alterações desta política">
               <p>
                 Podemos atualizar este documento. Quando houver mudança
                 relevante, a data de atualização no topo será alterada e, se
@@ -284,7 +388,7 @@ export default function PoliticaDePrivacidade() {
               </p>
             </Secao>
 
-            <Secao titulo="13. Contato">
+            <Secao titulo="14. Contato">
               <p>
                 Dúvidas sobre privacidade ou sobre esta política:
                 <br />
