@@ -167,8 +167,7 @@ export default function Seven({
         Módulos adicionais
       </h3>
       <p className="mx-auto mt-4 max-w-3xl text-center text-base text-black/70">
-        Os módulos são contratados separadamente e cobrados por instância —
-        cada condomínio ou agente —, somados à mensalidade do plano.
+        Os módulos são contratados separadamente e cobrados por instância
       </p>
 
       <div className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-6 sm:mt-12 sm:gap-8 md:grid-cols-2">
