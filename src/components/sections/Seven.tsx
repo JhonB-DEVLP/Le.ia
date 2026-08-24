@@ -26,7 +26,6 @@ const plans = [
       { price: 380, unit: "/mês", detail: "500 conversas" },
       { price: 500, unit: "/mês", detail: "1.000 conversas" },
     ],
-    footnote: "Documentos ilimitados nos dois níveis.",
   },
   {
     name: "Administradora",
@@ -38,8 +37,6 @@ const plans = [
       { price: 230, unit: "por assistente", detail: "De 11 a 20 assistentes" },
       { price: 220, unit: "por assistente", detail: "De 21 a 30 assistentes" },
     ],
-    // Sem um total concreto, "R$ 250" é lido como preço fechado do plano.
-    footnote: "Exemplo: 10 assistentes = R$ 2.500/mês.",
   },
   {
     name: "Conversas Extras",
@@ -50,7 +47,6 @@ const plans = [
       { price: 200, unit: "pagamento único", detail: "500 conversas extras" },
       { price: 380, unit: "pagamento único", detail: "1.000 conversas extras" },
     ],
-    footnote: null,
   },
 ];
 
@@ -60,8 +56,8 @@ const plans = [
  *
  * `freeDays` difere entre os módulos (30 e 60) e cada período corre de forma
  * independente, a partir da criação da conta — por isso o prazo é exibido
- * dentro de cada card e nunca como uma frase única da seção, que sugeriria um
- * período comum aos dois.
+ * dentro de cada card. Não o consolide em uma frase única da seção: isso
+ * sugeriria um período comum aos dois.
  */
 const modules = [
   {
@@ -117,11 +113,13 @@ export default function Seven({
             </p>
 
             {/*
-              `mt-auto` ancora o bloco de preços na base do card: as descrições
-              têm alturas diferentes entre os cards e, sem isso, os preços
-              começariam em alturas distintas.
+              Os preços começam logo abaixo da descrição, no topo: como os
+              cards têm quantidades diferentes de linhas (2 ou 3), ancorá-los
+              na base faria a primeira linha de cada card começar em uma
+              altura distinta. A sobra de espaço fica embaixo, absorvida pelo
+              `mt-auto` do botão.
             */}
-            <div className="mt-auto space-y-4 pt-6">
+            <div className="mt-6 mb-8 space-y-4">
               {plan.rows.map((row) => (
                 <div
                   key={row.detail}
@@ -145,17 +143,15 @@ export default function Seven({
               ))}
             </div>
 
-            {plan.footnote && (
-              <p className="mt-4 text-center text-sm text-black/60">
-                {plan.footnote}
-              </p>
-            )}
-
+            {/*
+              `mt-auto` no botão absorve a sobra de altura dos cards com menos
+              linhas de preço, mantendo o CTA alinhado entre os três.
+            */}
             <a
               href={appRoutes.cadastro}
               target="_blank"
               rel="noopener noreferrer"
-              className="mx-auto mt-8 rounded-[5px] bg-[#4D6EFF] px-8 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
+              className="mx-auto mt-auto block w-fit rounded-[5px] bg-[#4D6EFF] px-8 py-3 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
             >
               Contratar
             </a>
@@ -199,17 +195,6 @@ export default function Seven({
           </div>
         ))}
       </div>
-
-      {/*
-        A dúvida previsível do visitante é o que conta como "conversa": a
-        definição fica ao pé da tabela, logo depois das cotas.
-      */}
-      <p className="mx-auto mt-10 max-w-3xl text-center text-sm text-black/60">
-        Uma conversa é o atendimento a um morador dentro de uma janela de 24
-        horas, incluindo todas as mensagens trocadas nesse período. O prazo
-        gratuito de cada módulo é independente: começa a contar quando a conta
-        é criada e termina no seu próprio prazo.
-      </p>
 
       <div className="mt-14 flex flex-col overflow-hidden rounded-3xl shadow-md sm:mt-20 md:flex-row">
         <div className="relative h-72 w-full md:h-auto md:w-2/5">
