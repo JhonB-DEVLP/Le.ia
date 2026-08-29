@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { atendimentos, urlAtendimento } from "@/lib/atendimentos";
 import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -29,5 +30,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    // Páginas dos canais de WhatsApp. Precisam ser rastreáveis: é nelas que a
+    // análise da Meta encontra o nome de exibição escrito no site.
+    ...atendimentos.map((atendimento) => ({
+      url: urlAtendimento(atendimento.slug),
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
   ];
 }
