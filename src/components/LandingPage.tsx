@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import Two from "@/components/sections/Two";
+import Demonstracao from "@/components/sections/Demonstracao";
 import Three from "@/components/sections/Three";
 import Four from "@/components/sections/Four";
 import Five from "@/components/sections/Five";
@@ -28,8 +29,9 @@ export default function LandingPage({
     <>
       <Header contatoHref={contatoHref} />
       <main id="top">
-        <Hero />
+        <Hero contatoHref={contatoHref} />
         <Two />
+        <Demonstracao />
         <Three />
         <Four />
         <Five />

@@ -63,18 +63,18 @@ export default function Sobre() {
     <>
       <Header />
       {/* id="top": o logo do Header aponta para #top em todas as páginas. */}
-      <main id="top" className="bg-white">
+      <main id="top" className="bg-fundo">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-          <h1 className="text-3xl font-semibold text-black sm:text-4xl">
+          <h1 className="display text-3xl text-tinta sm:text-4xl">
             Sobre a léia
           </h1>
-          <p className="mt-3 text-black/70">
+          <p className="mt-3 text-tinta/70">
             Quem opera a plataforma e como o serviço funciona
           </p>
 
-          <div className="mt-10 flex flex-col gap-12 leading-relaxed text-black/80">
+          <div className="mt-10 flex flex-col gap-12 leading-relaxed text-tinta/80">
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 O que é a léia
               </h2>
               <p>
@@ -93,7 +93,7 @@ export default function Sobre() {
             </section>
 
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 Como funciona
               </h2>
               <ol className="flex flex-col gap-6">
@@ -101,12 +101,12 @@ export default function Sobre() {
                   <li key={etapa.titulo} className="flex gap-4">
                     <span
                       aria-hidden="true"
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#4D6EFF] text-sm font-semibold text-white"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-azul text-sm font-semibold text-sobre-azul"
                     >
                       {i + 1}
                     </span>
                     <div>
-                      <h3 className="font-semibold text-black">
+                      <h3 className="font-semibold text-tinta">
                         {etapa.titulo}
                       </h3>
                       <p className="mt-1">{etapa.texto}</p>
@@ -117,7 +117,7 @@ export default function Sobre() {
             </section>
 
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 O painel da administradora
               </h2>
               <p>
@@ -127,7 +127,7 @@ export default function Sobre() {
                   href={appUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   {appUrl.replace("https://", "")}
                 </a>
@@ -138,37 +138,37 @@ export default function Sobre() {
             </section>
 
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 Quem opera o serviço
               </h2>
               <p>
                 A léia é uma plataforma desenvolvida e operada por{" "}
-                <strong className="font-medium text-black">
+                <strong className="font-medium text-tinta">
                   {empresa.razaoSocial}
                 </strong>
                 , empresa brasileira sediada em {empresa.endereco.cidade},{" "}
                 {empresa.endereco.estado}.
               </p>
 
-              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-black/10 p-6">
+              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
                 <div>
-                  <dt className="text-sm font-semibold text-black">
+                  <dt className="text-sm font-semibold text-tinta">
                     Razão social
                   </dt>
                   <dd className="mt-1">{empresa.razaoSocial}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">CNPJ</dt>
+                  <dt className="text-sm font-semibold text-tinta">CNPJ</dt>
                   <dd className="mt-1">{empresa.cnpj}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">
+                  <dt className="text-sm font-semibold text-tinta">
                     Nome comercial da plataforma
                   </dt>
                   <dd className="mt-1">léia</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">Endereço</dt>
+                  <dt className="text-sm font-semibold text-tinta">Endereço</dt>
                   <dd className="mt-1">
                     <address className="not-italic">
                       {empresa.endereco.logradouro}
@@ -181,24 +181,24 @@ export default function Sobre() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">E-mail</dt>
+                  <dt className="text-sm font-semibold text-tinta">E-mail</dt>
                   <dd className="mt-1">
                     <a
                       href={`mailto:${contatoEmail}`}
-                      className="font-medium text-[#4D6EFF] hover:underline"
+                      className="font-medium text-azul hover:underline"
                     >
                       {contatoEmail}
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">WhatsApp</dt>
+                  <dt className="text-sm font-semibold text-tinta">WhatsApp</dt>
                   <dd className="mt-1">
                     <a
                       href={whatsappLink(whatsappMessages.contato)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium text-[#4D6EFF] hover:underline"
+                      className="font-medium text-azul hover:underline"
                     >
                       Falar com a equipe comercial
                     </a>
@@ -208,7 +208,7 @@ export default function Sobre() {
             </section>
 
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 Privacidade e uso responsável
               </h2>
               <p>
@@ -221,14 +221,14 @@ export default function Sobre() {
                 Os detalhes sobre tratamento de dados estão na{" "}
                 <a
                   href="/politica-de-privacidade"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   Política de Privacidade
                 </a>{" "}
                 e as condições de contratação nos{" "}
                 <a
                   href="/termos-de-uso"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   Termos de Uso
                 </a>

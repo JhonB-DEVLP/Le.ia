@@ -14,6 +14,7 @@ import {
  * trata link morto como sinal de site incompleto/template não editado.
  */
 const links = [
+  { label: "Testar a léia", href: "/#testar" },
   { label: "Funcionalidades", href: "/#funcionalidades" },
   { label: "Planos", href: "/#planos" },
   { label: "Depoimentos", href: "/#depoimentos" },
@@ -31,12 +32,7 @@ export default function Footer() {
   const anoAtual = new Date().getFullYear();
 
   return (
-    <footer
-      className="w-full text-white"
-      style={{
-        background: "linear-gradient(to bottom, #4D6EFF, #3C4E9F)",
-      }}
-    >
+    <footer className="sobre-escuro w-full bg-destaque text-destaque-texto">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-3 sm:gap-12 sm:px-6 sm:py-16">
         <div>
           <Image src="/LogoFooter.svg" alt="léia" width={120} height={33} />
@@ -66,9 +62,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold tracking-widest text-white/70">
-            LINKS
-          </h3>
+          <h3 className="text-sm font-semibold text-white">Navegação</h3>
           <ul className="mt-4 flex flex-col gap-3 text-sm">
             {links.map((link) => (
               <li key={link.label}>
@@ -101,9 +95,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold tracking-widest text-white/70">
-            LEGAL
-          </h3>
+          <h3 className="text-sm font-semibold text-white">Documentos</h3>
           <ul className="mt-4 flex flex-col gap-3 text-sm">
             {legal.map((link) => (
               <li key={link.label}>

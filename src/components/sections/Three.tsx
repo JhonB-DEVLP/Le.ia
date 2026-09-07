@@ -1,89 +1,135 @@
-import Image from "next/image";
+import Conversa, { type Mensagem } from "@/components/sections/Conversa";
 
-const features = [
+/*
+  Quatro recursos, cada um provado por uma conversa real em vez de uma
+  ilustração genérica. A alternância de lado dá ritmo à leitura; o texto
+  fica sempre alinhado à esquerda.
+
+  As conversas foram escolhidas para mostrar exatamente o que o texto ao
+  lado afirma — o repasse para humano aparece como repasse, a atualização
+  de documento aparece com a informação nova já na resposta.
+*/
+type Recurso = {
+  titulo: string;
+  descricao: string;
+  ladoDaConversa: "esquerda" | "direita";
+  conversa: readonly Mensagem[];
+};
+
+const recursos: readonly Recurso[] = [
   {
-    image: "/Three/image 9.svg",
-    alt: "O poder da IA tornando tudo mais ágil",
-    imageSide: "left",
-    title: "O poder da IA tornando tudo mais ágil.",
-    description:
-      "A maior parte das dúvidas que chegam por WhatsApp não exigem interação humana. Dúvidas sobre horários, regulamento interno, taxas, reservas de áreas comuns, indicação de fornecedores e outros temas são resolvidos de forma eficiente.",
+    titulo: "A maior parte das perguntas não precisa de gente",
+    descricao:
+      "Horário da piscina, regra de mudança, taxa em atraso, telefone do porteiro. São perguntas repetidas que consomem o dia da equipe e que a léia responde na hora, com a informação certa do seu condomínio.",
+    ladoDaConversa: "esquerda",
+    conversa: [
+      { de: "morador", texto: "Até que horas posso usar a piscina?", hora: "09:12" },
+      {
+        de: "leia",
+        texto:
+          "A piscina funciona das 8h às 22h de terça a domingo. Às segundas fica fechada para limpeza.",
+        hora: "09:12",
+      },
+    ],
   },
   {
-    image: "/Three/image 10.svg",
-    alt: "A eficiência da IA e a empatia do humano",
-    imageSide: "right",
-    title: "A eficiência da IA e a empatia do humano",
-    description:
-      "Algumas vezes o morador precisa falar com um humano, seja pelo nível de urgência, seja por uma necessidade específica. Isso não é um problema para a léia, que avisa às pessoas cadastradas a necessidade dessa interação.",
+    titulo: "E quando precisa, ela chama você",
+    descricao:
+      "A léia reconhece urgência e assunto delicado. Nesses casos ela não improvisa: avisa na hora a pessoa responsável e diz ao morador que alguém já foi acionado.",
+    ladoDaConversa: "direita",
+    conversa: [
+      {
+        de: "morador",
+        texto: "Tem água vazando do teto da garagem, tá alagando!",
+        hora: "23:04",
+      },
+      {
+        de: "leia",
+        texto:
+          "Isso precisa de atendimento imediato. Já avisei o síndico e a empresa de manutenção agora.\n\nPode me mandar uma foto do ponto do vazamento?",
+        hora: "23:04",
+      },
+    ],
   },
   {
-    image: "/Three/image 11.svg",
-    alt: "A sua assistente, do seu jeito",
-    imageSide: "left",
-    title: "A sua assistente, do seu jeito",
-    description:
-      "Configure tom de voz, estilo de resposta, temas que podem e não podem ser abordados, o humor e até mesmo o sotaque de seu assistente de maneira super simples e rápida. Os ajustes são feitos rapidamente, sem exigir conhecimento técnico.",
+    titulo: "Ela fala do jeito do seu condomínio",
+    descricao:
+      "Tom de voz, formalidade, assuntos permitidos e proibidos, até o sotaque. Tudo se ajusta em minutos, sem depender de time técnico e sem escrever uma linha de código.",
+    ladoDaConversa: "esquerda",
+    conversa: [
+      { de: "morador", texto: "Oi, boa tarde. Chegou encomenda pra mim?", hora: "14:30" },
+      {
+        de: "leia",
+        texto:
+          "Oi, Seu Antônio! Tem sim, uma caixa chegou hoje às 11h e está na portaria, viu?",
+        hora: "14:30",
+      },
+    ],
   },
   {
-    image: "/Three/image 12.svg",
-    alt: "Sempre a informação mais atual para seu cliente",
-    imageSide: "right",
-    title: "Sempre a informação mais atual para seu cliente",
-    description:
-      "A léia extrai suas informações de uma RAG, um banco de documentos fácil de atualizar. Convenção nova? Basta substituir na RAG. Mudança de horário? Na lei? Taxa Extra? Novidade? Em poucos segundos a informação está atualizada.",
+    titulo: "Mudou a regra, mudou a resposta",
+    descricao:
+      "As informações vivem em uma base de documentos que você atualiza sozinho. Convenção nova, taxa extra, mudança de horário: substitui o documento e a resposta muda em segundos, para todo mundo.",
+    ladoDaConversa: "direita",
+    conversa: [
+      { de: "morador", texto: "Qual o valor da taxa de mudança agora?", hora: "16:58" },
+      {
+        de: "leia",
+        texto:
+          "A taxa passou a ser R$ 180 desde a assembleia do dia 3. O agendamento continua sendo feito com 48h de antecedência.",
+        hora: "16:58",
+      },
+    ],
   },
 ] as const;
 
 export default function Three() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
-      <h2 className="text-center text-2xl font-semibold sm:text-3xl">
-        Simples. Rápido. Fácil. Barato.
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+      <h2 className="display max-w-[18ch] text-3xl text-tinta sm:text-4xl lg:text-[2.75rem]">
+        O que acontece quando o WhatsApp do condomínio para de tocar
       </h2>
 
-      <div className="mt-10 flex flex-col gap-12 sm:mt-16 sm:gap-16">
-        {features.map((feature) => (
-          <div
-            key={feature.title}
-            className="grid grid-cols-1 items-center gap-6 sm:gap-10 md:grid-cols-2"
+      <div className="mt-14 flex flex-col gap-16 sm:mt-20 sm:gap-24">
+        {recursos.map((recurso) => (
+          <article
+            key={recurso.titulo}
+            className="grid items-center gap-8 md:grid-cols-2 md:gap-14"
           >
+            {/*
+              No empilhamento de celular o título vem antes da conversa
+              (order-2/order-1): a prova só faz sentido depois da afirmação.
+              A alternância de lados volta a valer a partir de md.
+            */}
             <div
               className={
-                feature.imageSide === "right" ? "order-1 md:order-2" : "order-1"
+                recurso.ladoDaConversa === "direita"
+                  ? "order-2 md:order-2"
+                  : "order-2 md:order-1"
               }
             >
-              <Image
-                src={feature.image}
-                alt={feature.alt}
-                width={403}
-                height={368}
-                className="h-auto w-full"
+              <Conversa
+                mensagens={recurso.conversa}
+                comCabecalho={false}
+                className="mx-auto max-w-[24rem] md:max-w-none"
               />
             </div>
 
             <div
               className={
-                feature.imageSide === "right" ? "order-2 md:order-1" : "order-2"
+                recurso.ladoDaConversa === "direita"
+                  ? "order-1 md:order-1"
+                  : "order-1 md:order-2"
               }
             >
-              <h3 className="text-2xl font-bold sm:text-3xl">
-                {feature.title.split("léia").map((part, i, arr) =>
-                  i < arr.length - 1 ? (
-                    <span key={i}>
-                      {part}
-                      <span className="text-[#4D6EFF]">léia</span>
-                    </span>
-                  ) : (
-                    part
-                  ),
-                )}
+              <h3 className="display text-2xl text-tinta sm:text-3xl">
+                {recurso.titulo}
               </h3>
-              <p className="mt-4 text-base text-black/70">
-                {feature.description}
+              <p className="mt-4 max-w-[46ch] text-base text-tinta/70 sm:text-lg">
+                {recurso.descricao}
               </p>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

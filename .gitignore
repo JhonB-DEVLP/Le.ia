@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Arte da versão anterior da landing (~19 MB de bitmaps embutidos em SVG).
+# Fica fora do repositório para não pesar o clone; ver arquivo-design/LEIA-ME.md.
+/arquivo-design
+
+# Symlink gerado pelo instalador de skills, com caminho absoluto da máquina
+# local. A fonte versionada é .agents/skills/; este link se refaz sozinho.
+/.claude/skills

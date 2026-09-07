@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import BotaoTema from "@/components/layout/BotaoTema";
 import { appRoutes, whatsappLink, whatsappMessages } from "@/lib/site";
 
 const defaultContatoHref = whatsappLink(whatsappMessages.contato);
 
 const navLinks = [
+  { label: "Testar", href: "#testar" },
   { label: "Funcionalidades", href: "#funcionalidades" },
   { label: "Planos", href: "#planos" },
   { label: "Depoimentos", href: "#depoimentos" },
@@ -49,7 +51,7 @@ export default function Header({
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b border-black/10 bg-white transition-transform duration-300 dark:border-white/10 ${
+      className={`sticky top-0 z-50 w-full border-b border-borda bg-fundo/90 backdrop-blur transition-transform duration-300 ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -65,9 +67,13 @@ export default function Header({
           />
         </a>
 
-        <nav className="hidden items-center gap-6 text-ls lg:flex">
+        <nav className="hidden items-center gap-7 text-sm lg:flex">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-tinta/70 transition-colors hover:text-tinta"
+            >
               {link.label}
             </a>
           ))}
@@ -78,7 +84,7 @@ export default function Header({
             href={contatoHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-[5px] border border-[#4D6EFF] px-5 py-2 font-medium text-[#4D6EFF] transition-colors hover:bg-[#4D6EFF]/10"
+            className="rounded-full border border-borda-forte px-5 py-2 font-semibold text-tinta transition-colors hover:border-tinta/50"
           >
             Contato
           </Link>
@@ -86,29 +92,33 @@ export default function Header({
             href={appRoutes.login}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-[5px] bg-[#4D6EFF] px-5 py-2 font-medium text-white transition-colors hover:bg-[#3d5ce6]"
+            className="rounded-full bg-azul px-5 py-2 font-semibold text-sobre-azul transition-colors hover:bg-royal"
           >
             Acessar
           </a>
+          <BotaoTema />
         </div>
 
-        <button
+        <div className="flex items-center gap-1 lg:hidden">
+          <BotaoTema />
+          <button
           type="button"
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-black lg:hidden"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-tinta lg:hidden"
         >
           {menuOpen ? (
             <HiOutlineX className="h-7 w-7" />
           ) : (
             <HiOutlineMenu className="h-7 w-7" />
           )}
-        </button>
+          </button>
+        </div>
       </div>
 
       <div
-        className={`grid overflow-hidden border-t border-black/10 transition-[grid-template-rows] duration-300 ease-in-out lg:hidden ${
+        className={`grid overflow-hidden border-t border-borda transition-[grid-template-rows] duration-300 ease-in-out lg:hidden ${
           menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
@@ -119,7 +129,7 @@ export default function Header({
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="rounded-md px-2 py-3 font-medium active:bg-black/5"
+                className="rounded-md px-2 py-3 font-medium text-tinta active:bg-tinta/5"
               >
                 {link.label}
               </a>
@@ -132,7 +142,7 @@ export default function Header({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="rounded-[5px] border border-[#4D6EFF] px-5 py-3 text-center font-medium text-[#4D6EFF] transition-colors hover:bg-[#4D6EFF]/10"
+              className="rounded-full border border-borda-forte px-5 py-3 text-center font-semibold text-tinta"
             >
               Contato
             </Link>
@@ -141,7 +151,7 @@ export default function Header({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="rounded-[5px] bg-[#4D6EFF] px-5 py-3 text-center font-medium text-white transition-colors hover:bg-[#3d5ce6]"
+              className="rounded-full bg-azul px-5 py-3 text-center font-semibold text-sobre-azul"
             >
               Acessar
             </a>

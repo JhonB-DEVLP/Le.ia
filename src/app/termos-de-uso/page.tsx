@@ -42,7 +42,7 @@ export default function TermosDeUso() {
     <>
       <Header />
       {/* id="top": o logo do Header aponta para #top em todas as páginas. */}
-      <main id="top" className="bg-white">
+      <main id="top" className="bg-fundo">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
           <CabecalhoLegal
             titulo="Termos de Uso"
@@ -50,7 +50,7 @@ export default function TermosDeUso() {
             atualizadoEm={atualizadoEm}
           />
 
-          <div className="mt-10 flex flex-col gap-10 leading-relaxed text-black/80">
+          <div className="mt-10 flex flex-col gap-10 leading-relaxed text-tinta/80">
             <p>
               Estes Termos regulam o acesso e o uso da plataforma léia,
               disponibilizada por {empresa.razaoSocial}, inscrita no CNPJ sob o
@@ -201,7 +201,7 @@ export default function TermosDeUso() {
                 descrito na{" "}
                 <a
                   href="/politica-de-privacidade"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   Política de Privacidade
                 </a>

@@ -33,37 +33,41 @@ const faqs = [
 
 export default function Eight() {
   return (
-    <section id="faq" className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-      <h2 className="text-center text-2xl font-semibold sm:text-3xl">
-        Perguntas frequentes
-      </h2>
+    <section id="faq" className="border-t border-borda bg-papel">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-24 md:grid-cols-[0.75fr_1.25fr] md:gap-16">
+        <h2 className="display text-3xl text-tinta sm:text-4xl">
+          Perguntas frequentes
+        </h2>
 
-      <Accordion.Root
-        type="single"
-        collapsible
-        defaultValue={faqs[0].question}
-        className="mt-10 flex flex-col gap-4 sm:mt-12"
-      >
-        {faqs.map((faq) => (
-          <Accordion.Item
-            key={faq.question}
-            value={faq.question}
-            className="rounded-2xl border border-black/10"
-          >
-            <Accordion.Header>
-              <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between gap-4 px-4 py-4 text-left sm:px-6 sm:py-5">
-                <span className="font-semibold text-black">
-                  {faq.question}
-                </span>
-                <HiChevronDown className="h-5 w-5 shrink-0 text-[#4D6EFF] transition-transform duration-300 group-data-[state=open]:rotate-180" />
-              </Accordion.Trigger>
-            </Accordion.Header>
-            <Accordion.Content className="overflow-hidden px-4 text-base text-black/70 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down sm:px-6">
-              <p className="pb-5">{faq.answer}</p>
-            </Accordion.Content>
-          </Accordion.Item>
-        ))}
-      </Accordion.Root>
+        <Accordion.Root
+          type="single"
+          collapsible
+          defaultValue={faqs[0].question}
+          className="flex flex-col"
+        >
+          {faqs.map((faq) => (
+            <Accordion.Item
+              key={faq.question}
+              value={faq.question}
+              className="border-b border-borda first:border-t"
+            >
+              <Accordion.Header>
+                <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between gap-6 py-5 text-left">
+                  <span className="text-base font-semibold text-tinta sm:text-lg">
+                    {faq.question}
+                  </span>
+                  <HiChevronDown className="h-5 w-5 shrink-0 text-azul transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                </Accordion.Trigger>
+              </Accordion.Header>
+              <Accordion.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                <p className="max-w-[60ch] pb-6 text-base text-tinta/70">
+                  {faq.answer}
+                </p>
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion.Root>
+      </div>
     </section>
   );
 }

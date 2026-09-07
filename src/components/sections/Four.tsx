@@ -1,130 +1,101 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
-const audiences = [
+/*
+  Dois públicos com necessidades diferentes. Antes era um cartão azul com
+  ilustração recortada por cima; agora é um painel escuro — o único bloco
+  escuro da página, o que dá a ele o peso de "aqui está a decisão de compra"
+  sem precisar de gradiente.
+
+  As duas abas são conteúdo alternativo, não uma sequência, então nada de
+  numeração.
+*/
+const publicos = [
   {
-    key: "administradoras",
-    label: "Administradoras e\nsíndicos profissionais",
-    image: "/Four/image 36.svg",
-    imageSide: "left",
-    title: "A léia economizando tempo, dinheiro e estresse.",
-    bullets: [
-      "Um único número de WhatsApp para atender diversos condomínios.",
-      "Bases de dados separadas para cada condomínio atendido.",
-      "Atendimento humano separado por condomínio.",
-      "Relatórios de chamados customizados por condomínio.",
-      "Integrações com os principais sistemas de gestão do mercado.",
+    chave: "administradoras",
+    aba: "Administradoras",
+    titulo: "Uma equipe atendendo trinta condomínios sem trinta números",
+    itens: [
+      "Um único WhatsApp atende toda a carteira.",
+      "Cada condomínio com sua própria base de documentos.",
+      "Atendimento humano roteado por condomínio.",
+      "Relatórios de chamados separados por cliente.",
+      "Integração com os principais sistemas de gestão.",
     ],
   },
   {
-    key: "sindicos",
-    label: "Síndicos e\nsub-síndicos",
-    image: "/Four/image 37.svg",
-    imageSide: "right",
-    title: "A léia resolvendo até 90% dos chamados diários.",
-    bullets: [
-      "Disponível 24/7 por WhatsApp para atender os moradores.",
-      "Regras, regulamento, informações e documentos sempre disponíveis.",
-      "Reconhece situações que precisam da ação de um humano.",
-      "Gerencia reservas de áreas comuns do condomínio.",
-      "Fácil de atualizar e gerenciar, com diversos relatórios diferentes.",
+    chave: "sindicos",
+    aba: "Síndicos",
+    titulo: "O plantão de madrugada que você não precisa mais fazer",
+    itens: [
+      "Atendimento 24 horas, todos os dias, no WhatsApp.",
+      "Regulamento, atas e comunicados sempre à mão do morador.",
+      "Reconhece o que é urgente e aciona você na hora.",
+      "Recebe e organiza as reservas de áreas comuns.",
+      "Atualização feita por você, sem depender de suporte.",
     ],
   },
 ] as const;
 
 export default function Four() {
-  const [selected, setSelected] = useState<(typeof audiences)[number]["key"]>(
-    audiences[0].key,
+  const [ativo, setAtivo] = useState<(typeof publicos)[number]["chave"]>(
+    publicos[0].chave,
   );
 
-  const current = audiences.find((a) => a.key === selected)!;
+  const atual = publicos.find((p) => p.chave === ativo)!;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-8 sm:py-16">
-      <div className="relative">
-        <div
-          className="rounded-3xl"
-          style={{
-            background: "linear-gradient(to bottom, #4D6EFF, #3C4E9F)",
-          }}
-        >
-          <div className="px-4 pt-8 sm:px-10 sm:pt-14 md:px-14 md:pt-20">
-            <div className="flex justify-center">
-              <div className="inline-flex flex-col gap-1 rounded-3xl border border-white/70 p-1 sm:flex-row sm:rounded-full">
-                {audiences.map((audience) => (
-                  <button
-                    key={audience.key}
-                    type="button"
-                    onClick={() => setSelected(audience.key)}
-                    className={`cursor-pointer whitespace-pre-line rounded-full px-4 py-2.5 text-center text-xs font-medium transition-colors sm:px-6 sm:py-3 sm:text-sm ${
-                      selected === audience.key
-                        ? "bg-white text-[#2440C4]"
-                        : "text-white"
-                    }`}
-                  >
-                    {audience.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+    <section className="sobre-escuro bg-destaque">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <div className="flex flex-wrap items-baseline justify-between gap-6">
+          <h2 className="display max-w-[16ch] text-3xl text-destaque-texto sm:text-4xl">
+            Quem já parou de responder no lugar da léia
+          </h2>
 
-          <div className="flex flex-col md:min-h-144 md:flex-row md:items-center">
-            <div
-              className={`hidden md:block md:w-2/5 ${
-                current.imageSide === "right" ? "order-2" : "order-1"
-              }`}
-              aria-hidden="true"
-            />
-
-            <div
-              className={`w-full px-6 pt-6 pb-6 text-white sm:px-10 md:w-3/5 md:pb-0 md:py-14 ${
-                current.imageSide === "right"
-                  ? "order-1 md:pl-24 md:pr-0"
-                  : "order-2 md:pr-6 md:pl-0"
-              }`}
-            >
-              <h3 className="text-xl font-bold whitespace-pre-line sm:text-2xl md:text-3xl">
-                {current.title}
-              </h3>
-              <ul className="mt-6 space-y-3">
-                {current.bullets.map((bullet) => (
-                  <li key={bullet} className="text-base text-white/90 sm:text-lg">
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="md:hidden">
-            <Image
-              src={current.image}
-              alt={current.title}
-              width={403}
-              height={368}
-              className="mx-auto h-auto w-full max-w-xs object-bottom"
-            />
+          <div
+            role="tablist"
+            aria-label="Escolha o seu perfil"
+            className="flex gap-1 rounded-full bg-white/10 p-1"
+          >
+            {publicos.map((publico) => (
+              <button
+                key={publico.chave}
+                role="tab"
+                type="button"
+                aria-selected={ativo === publico.chave}
+                onClick={() => setAtivo(publico.chave)}
+                className={`cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                  ativo === publico.chave
+                    ? "bg-white text-[#0b1a4a]"
+                    : "text-destaque-texto/75 hover:text-destaque-texto"
+                }`}
+              >
+                {publico.aba}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div
-          className={`pointer-events-none absolute bottom-0 z-10 hidden w-full max-w-md md:block md:w-1/2 ${
-            current.imageSide === "right"
-              ? "right-0 md:-right-10 lg:-right-16"
-              : "left-0 md:-left-10 lg:-left-16"
-          }`}
-          style={{ top: "-4rem" }}
-        >
-          <Image
-            src={current.image}
-            alt={current.title}
-            width={403}
-            height={368}
-            className="h-full w-full object-contain object-bottom"
-          />
+        <div className="mt-12 grid items-start gap-10 md:grid-cols-[1fr_1.15fr] md:gap-16">
+          <h3 className="display text-2xl text-destaque-texto sm:text-3xl">
+            {atual.titulo}
+          </h3>
+
+          {/*
+            Lista com régua à esquerda: a linha vertical agrupa os itens como
+            um conjunto único, em vez de cinco caixas repetidas.
+          */}
+          <ul className="flex flex-col gap-px border-l border-white/25 pl-6">
+            {atual.itens.map((item) => (
+              <li
+                key={item}
+                className="py-3 text-base text-destaque-texto/80 sm:text-lg"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

@@ -73,7 +73,7 @@ export default async function AtendimentoPage({
     <>
       <Header />
       {/* id="top": o logo do Header aponta para #top em todas as páginas. */}
-      <main id="top" className="bg-white">
+      <main id="top" className="bg-fundo">
         <script
           type="application/ld+json"
           // JSON-LD é dado, não script executável; o conteúdo vem do módulo
@@ -84,50 +84,50 @@ export default async function AtendimentoPage({
         />
 
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-          <p className="text-sm font-medium text-[#4D6EFF]">
+          <p className="text-sm font-medium text-azul">
             Canal oficial de WhatsApp
           </p>
 
           {/* O nome de exibição, escrito exatamente como submetido à Meta. */}
-          <h1 className="mt-2 text-3xl font-semibold text-black sm:text-4xl">
+          <h1 className="display mt-2 text-3xl text-tinta sm:text-4xl">
             {atendimento.nomeExibicao}
           </h1>
 
-          <p className="mt-3 text-black/70">{atendimento.descricao}</p>
+          <p className="mt-3 text-tinta/70">{atendimento.descricao}</p>
 
-          <div className="mt-10 flex flex-col gap-12 leading-relaxed text-black/80">
+          <div className="mt-10 flex flex-col gap-12 leading-relaxed text-tinta/80">
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 Identificação do canal
               </h2>
               <p>
                 O nome{" "}
-                <strong className="font-medium text-black">
+                <strong className="font-medium text-tinta">
                   {atendimento.nomeExibicao}
                 </strong>{" "}
                 identifica o número de WhatsApp{" "}
-                <strong className="font-medium text-black">
+                <strong className="font-medium text-tinta">
                   {atendimento.telefone}
                 </strong>{" "}
                 na plataforma léia. É o nome que aparece ao morador quando ele
                 recebe ou envia uma mensagem por este número.
               </p>
 
-              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-black/10 p-6">
+              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
                 <div>
-                  <dt className="text-sm font-semibold text-black">
+                  <dt className="text-sm font-semibold text-tinta">
                     Nome de exibição
                   </dt>
                   <dd className="mt-1">{atendimento.nomeExibicao}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">
+                  <dt className="text-sm font-semibold text-tinta">
                     Número de WhatsApp
                   </dt>
                   <dd className="mt-1">{atendimento.telefone}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">
+                  <dt className="text-sm font-semibold text-tinta">
                     Página oficial deste canal
                   </dt>
                   <dd className="mt-1">
@@ -138,31 +138,31 @@ export default async function AtendimentoPage({
             </section>
 
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 Quem opera este número
               </h2>
               <p>
                 Este canal é operado por{" "}
-                <strong className="font-medium text-black">
+                <strong className="font-medium text-tinta">
                   {empresa.razaoSocial}
                 </strong>
                 , empresa brasileira sediada em {empresa.endereco.cidade},{" "}
                 {empresa.endereco.estado}, responsável pela plataforma léia.
               </p>
 
-              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-black/10 p-6">
+              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
                 <div>
-                  <dt className="text-sm font-semibold text-black">
+                  <dt className="text-sm font-semibold text-tinta">
                     Razão social
                   </dt>
                   <dd className="mt-1">{empresa.razaoSocial}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">CNPJ</dt>
+                  <dt className="text-sm font-semibold text-tinta">CNPJ</dt>
                   <dd className="mt-1">{empresa.cnpj}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">Endereço</dt>
+                  <dt className="text-sm font-semibold text-tinta">Endereço</dt>
                   <dd className="mt-1">
                     <address className="not-italic">
                       {empresa.endereco.logradouro}
@@ -175,22 +175,22 @@ export default async function AtendimentoPage({
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">E-mail</dt>
+                  <dt className="text-sm font-semibold text-tinta">E-mail</dt>
                   <dd className="mt-1">
                     <a
                       href={`mailto:${contatoEmail}`}
-                      className="font-medium text-[#4D6EFF] hover:underline"
+                      className="font-medium text-azul hover:underline"
                     >
                       {contatoEmail}
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-semibold text-black">Site</dt>
+                  <dt className="text-sm font-semibold text-tinta">Site</dt>
                   <dd className="mt-1">
                     <a
                       href={siteUrl}
-                      className="font-medium text-[#4D6EFF] hover:underline"
+                      className="font-medium text-azul hover:underline"
                     >
                       {siteUrl.replace("https://", "")}
                     </a>
@@ -200,7 +200,7 @@ export default async function AtendimentoPage({
             </section>
 
             <section className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-black sm:text-2xl">
+              <h2 className="display text-xl text-tinta sm:text-2xl">
                 Como o atendimento funciona
               </h2>
               <p>
@@ -214,7 +214,7 @@ export default async function AtendimentoPage({
                   href={appUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   {appUrl.replace("https://", "")}
                 </a>
@@ -224,21 +224,21 @@ export default async function AtendimentoPage({
                 O tratamento de dados está descrito na{" "}
                 <a
                   href="/politica-de-privacidade"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   Política de Privacidade
                 </a>{" "}
                 e as condições de contratação nos{" "}
                 <a
                   href="/termos-de-uso"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   Termos de Uso
                 </a>
                 . Mais sobre a operadora em{" "}
                 <a
                   href="/sobre"
-                  className="font-medium text-[#4D6EFF] hover:underline"
+                  className="font-medium text-azul hover:underline"
                 >
                   Sobre a léia
                 </a>

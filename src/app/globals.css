@@ -1,14 +1,130 @@
 @import "tailwindcss";
 
+/*
+  A variante `dark:` passa a seguir o atributo data-tema em vez de
+  prefers-color-scheme: o tema do site é uma escolha explícita do visitante
+  (o script inline só usa a preferência do sistema como valor inicial).
+*/
+@custom-variant dark (&:where([data-tema="escuro"], [data-tema="escuro"] *));
+
+/*
+  Sistema de design da léia.
+
+  Os tokens são semânticos (papel, tinta, névoa), não literais: cada um
+  descreve o PAPEL da cor, e o tema escuro apenas troca os valores. Por isso
+  os componentes usam `bg-papel`/`text-tinta` e praticamente não precisam de
+  variantes `dark:` espalhadas pelo código.
+
+  No claro a base vem da logo: "papel" é um branco levemente azulado e
+  "tinta" é azul-marinho em vez de preto. No escuro a página não vira preto
+  puro — vira o mesmo azul-marinho profundo da marca, o que mantém a
+  identidade e evita o contraste duro de branco sobre #000.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /*
+    Dois azuis com papéis distintos. `--leia-marca` é o azul da logo, usado
+    onde ele aparece sozinho (ícone, detalhes). `--leia-azul` é o azul de
+    ação: com branco por cima o azul da logo dá 4,21 de contraste, abaixo do
+    mínimo AA de 4,5, e todo botão primário do site é branco sobre azul.
+  */
+  --leia-marca: #4d6eff;
+  --leia-azul: #4667f5;
+  --leia-royal: #2440c4;
+  --leia-zap: #25d366;
+
+  /*
+    Cor do texto SOBRE o azul de ação. No claro é branco; no escuro o azul
+    clareia e o branco por cima cai para 2,46 de contraste — ilegível — então
+    o texto do botão inverte para o marinho profundo, que dá 6,78.
+  */
+  --leia-sobre-azul: #ffffff;
+
+  /* Superfícies e texto — trocados pelo tema. */
+  --leia-fundo: #ffffff;
+  --leia-papel: #f4f6fd;
+  --leia-nevoa: #e4e8fb;
+  --leia-tinta: #0b1a4a;
+  --leia-borda: rgb(11 26 74 / 0.12);
+  --leia-borda-forte: rgb(11 26 74 / 0.2);
+
+  /*
+    Bloco escuro de destaque (a seção de públicos). No tema claro ele é o
+    azul-marinho da marca; no escuro precisa se separar do fundo, então vira
+    um degrau mais claro que a página em vez de mais escuro.
+  */
+  --leia-destaque: #0b1a4a;
+  --leia-destaque-texto: #ffffff;
+
+  /* Janela de conversa do WhatsApp. */
+  --zap-cabecalho: #075e54;
+  --zap-fundo: #efe7de;
+  --zap-recebida: #ffffff;
+  --zap-enviada: #d9fdd3;
+  --zap-texto: #111b21;
+  --zap-hora: rgb(0 0 0 / 0.45);
+
+  --background: var(--leia-fundo);
+  --foreground: var(--leia-tinta);
+}
+
+[data-tema="escuro"] {
+  color-scheme: dark;
+
+  /*
+    O azul de ação clareia no escuro: #4667f5 sobre fundo escuro fica pesado
+    e, invertido, é o texto que precisa contrastar com a superfície.
+  */
+  --leia-marca: #7b93ff;
+  --leia-azul: #8aa0ff;
+  --leia-royal: #a8b8ff;
+  --leia-sobre-azul: #0b1a4a;
+
+  --leia-fundo: #070f2b;
+  --leia-papel: #0c1738;
+  --leia-nevoa: #16255a;
+  --leia-tinta: #e8ecfb;
+  --leia-borda: rgb(232 236 251 / 0.14);
+  --leia-borda-forte: rgb(232 236 251 / 0.26);
+
+  --leia-destaque: #142352;
+  --leia-destaque-texto: #ffffff;
+
+  --zap-cabecalho: #0d3b36;
+  --zap-fundo: #0f1a24;
+  --zap-recebida: #1f2c33;
+  --zap-enviada: #124d33;
+  --zap-texto: #e9edef;
+  --zap-hora: rgb(233 237 239 / 0.5);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+
+  --color-royal: var(--leia-royal);
+  --color-azul: var(--leia-azul);
+  --color-marca: var(--leia-marca);
+  --color-sobre-azul: var(--leia-sobre-azul);
+  --color-tinta: var(--leia-tinta);
+  --color-papel: var(--leia-papel);
+  --color-nevoa: var(--leia-nevoa);
+  --color-fundo: var(--leia-fundo);
+  --color-zap: var(--leia-zap);
+  --color-destaque: var(--leia-destaque);
+  --color-destaque-texto: var(--leia-destaque-texto);
+  --color-borda: var(--leia-borda);
+  --color-borda-forte: var(--leia-borda-forte);
+  --color-zap-cabecalho: var(--zap-cabecalho);
+  --color-zap-fundo: var(--zap-fundo);
+  --color-zap-recebida: var(--zap-recebida);
+  --color-zap-enviada: var(--zap-enviada);
+  --color-zap-texto: var(--zap-texto);
+
+  --font-sans: var(--font-public-sans);
+  --font-display: var(--font-bricolage);
+
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
@@ -31,7 +147,103 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  background: var(--leia-fundo);
+  color: var(--leia-tinta);
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+}
+
+/*
+  Transição na troca de tema. Fica só nas propriedades de cor e é desligada
+  enquanto o atributo `data-trocando` está no html — assim a mudança de tema
+  não arrasta animação em elementos que estão entrando na tela por outro
+  motivo. Respeita prefers-reduced-motion mais abaixo.
+*/
+body,
+body * {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+html[data-trocando] body,
+html[data-trocando] body * {
+  transition: none !important;
+}
+
+/*
+  Bricolage Grotesque é de largura e peso variáveis. Nos títulos apertamos
+  levemente o tracking porque em corpos grandes a fonte abre demais.
+*/
+.display {
+  font-family: var(--font-bricolage), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+/* Foco visível e consistente em toda a página, inclusive sobre fundo escuro. */
+:focus-visible {
+  outline: 2px solid var(--leia-azul);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.sobre-escuro :focus-visible {
+  outline-color: #ffffff;
+}
+
+/*
+  A única animação não disparada pelo usuário na página: a conversa do hero
+  se monta sozinha uma vez, no carregamento. É o momento orquestrado —
+  nenhuma outra seção tem entrada animada.
+*/
+@keyframes balao-entra {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.balao {
+  opacity: 0;
+  animation: balao-entra 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes ponto-pulsa {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.ponto-digitando {
+  animation: ponto-pulsa 1.2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body * {
+    transition: none !important;
+  }
+  .balao {
+    opacity: 1;
+    animation: none;
+  }
+  .ponto-digitando {
+    animation: none;
+    opacity: 0.6;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
