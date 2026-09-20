@@ -1,19 +1,36 @@
 import { appRoutes, whatsappLink, whatsappMessages } from "@/lib/site";
 
 /**
- * Formata valores em reais sem centavos (todos os preços da tabela são
- * inteiros). Centraliza o separador de milhar pt-BR, usado tanto nos preços
- * quanto nas cotas de conversas.
+ * Formata valores em reais no padrão pt-BR. A maioria dos preços da tabela é
+ * inteira, mas o excedente é cobrado por conversa (R$ 0,65), então o número de
+ * casas acompanha o valor em vez de ser fixo: duas casas fixas escreveriam
+ * "R$ 350,00" nos preços cheios, e zero truncaria o centavo do excedente.
  */
-const brl = (value: number) => value.toLocaleString("pt-BR");
+const brl = (value: number) =>
+  value.toLocaleString("pt-BR", {
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
 
 /**
- * Os três cards de plano têm formatos de preço genuinamente diferentes —
- * dois níveis mensais, preço unitário por faixa de volume e pacotes avulsos —
- * então cada um declara suas próprias linhas de preço em vez de forçar um
- * campo `price` único. `unit` é o texto ao lado do valor e é o que diferencia
- * "R$ 380/mês" de "R$ 250 por assistente": na Administradora o valor
- * multiplica pelo número de assistentes, não é um total fechado.
+ * A tarifa da Administradora tem duas partes que se somam, e é por isso que o
+ * card dela mostra duas linhas de natureza diferente: uma taxa por condomínio,
+ * que cobre estar no ar, e um pool de conversas que a carteira inteira divide.
+ * O condomínio silencioso quase não consome o pool; o movimentado puxa mais —
+ * a administradora administra um pool só.
+ *
+ * O pool aparece como "a partir de" em vez da tabela dos seis pacotes: o
+ * tamanho certo depende do consumo da carteira, que o visitante não sabe
+ * estimar sozinho, e é justamente a conversa que o botão de especialista puxa.
+ *
+ * O Condomínio tem preço fechado e não passa pelo pool — um prédio sozinho não
+ * tem com quem dividir, e o menor pacote é dimensionado para quase sete deles.
+ *
+ * Os cards têm formatos de preço genuinamente diferentes, então cada um declara
+ * suas próprias linhas em vez de forçar um campo `price` único. `unit` é o
+ * texto ao lado do valor e é o que diferencia "R$ 350/mês" de "R$ 39 por
+ * condomínio": na Administradora o valor multiplica pela carteira, não é um
+ * total fechado.
  */
 const plans = [
   {
@@ -21,30 +38,42 @@ const plans = [
     description:
       "Para o condomínio que quer a léia atendendo os moradores no WhatsApp.",
     highlighted: true,
-    rows: [
-      { price: 380, unit: "/mês", detail: "500 conversas" },
-      { price: 500, unit: "/mês", detail: "1.000 conversas" },
-    ],
+    rows: [{ price: 350, unit: "/mês", detail: "Preço fechado" }],
   },
   {
     name: "Administradora",
     description:
-      "Preço por assistente, com desconto por volume. Cada assistente inclui 500 conversas e documentos ilimitados.",
+      "Uma taxa por condomínio e um pool de conversas que a carteira inteira divide. Documentos ilimitados.",
     highlighted: false,
     rows: [
-      { price: 250, unit: "por assistente", detail: "Até 10 assistentes" },
-      { price: 230, unit: "por assistente", detail: "De 11 a 20 assistentes" },
-      { price: 220, unit: "por assistente", detail: "De 21 a 30 assistentes" },
+      {
+        price: 39,
+        unit: "por condomínio",
+        detail: "Taxa mensal, menor conforme a carteira cresce",
+      },
+      {
+        prefix: "a partir de",
+        price: 540,
+        unit: "/mês",
+        detail: "Pool de conversas, dimensionado com você",
+      },
     ],
   },
   {
-    name: "Conversas Extras",
+    name: "Excedente",
     description:
-      "Para quem usa toda a cota antes do fim do mês. Pacote avulso, somado à franquia do plano.",
+      "Se a carteira passar do pool contratado, o atendimento não para: só o que exceder é cobrado à parte.",
     highlighted: false,
+    // Não se contrata excedente — ele é a condição dos outros dois planos
+    // quando o pool acaba. Um botão "Contratar" aqui prometeria uma compra
+    // que não existe, então o card informa em vez de converter.
+    informational: true,
     rows: [
-      { price: 200, unit: "pagamento único", detail: "500 conversas extras" },
-      { price: 380, unit: "pagamento único", detail: "1.000 conversas extras" },
+      {
+        price: 0.65,
+        unit: "por conversa",
+        detail: "Cobrado apenas sobre o que passar do pool",
+      },
     ],
   },
 ];
@@ -86,9 +115,11 @@ export default function Seven({
       <h2 className="display max-w-[16ch] text-3xl text-tinta sm:text-4xl">
         Planos e preços
       </h2>
-      <p className="mt-5 max-w-[52ch] text-base text-tinta/70 sm:text-lg">
-        Mensal, sem fidelidade, cancela quando quiser. Escolha pelo tamanho
-        da operação: um condomínio só, ou uma carteira inteira.
+      <p className="mt-5 max-w-[56ch] text-base text-tinta/70 sm:text-lg">
+        Mensal, sem fidelidade, cancela quando quiser. O condomínio sozinho
+        paga preço fechado. A administradora paga uma taxa por prédio e um
+        pool de conversas que a carteira inteira divide — quem conversa pouco
+        não paga pelo movimento de quem conversa muito.
       </p>
 
       <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -117,7 +148,7 @@ export default function Seven({
             </p>
 
             {/*
-              Os cards têm 2 ou 3 linhas de preço; ancorar em cima mantém a
+              Os cards têm 1 ou 2 linhas de preço; ancorar em cima mantém a
               primeira linha na mesma altura nos três, e a sobra vai para
               baixo, absorvida pelo `mt-auto` do botão.
             */}
@@ -135,6 +166,21 @@ export default function Seven({
                   }`}
                 >
                   <div>
+                    {/*
+                      "a partir de" precede o valor porque é assim que se lê —
+                      depois dele, junto da unidade, sairia "R$ 540 / a partir
+                      de". Só o pool usa prefixo; as demais linhas são preço
+                      fechado e não o declaram.
+                    */}
+                    {"prefix" in row && (
+                      <p
+                        className={`text-xs ${
+                          plan.highlighted ? "text-destaque-texto/65" : "text-tinta/55"
+                        }`}
+                      >
+                        {row.prefix}
+                      </p>
+                    )}
                     <p className="whitespace-nowrap">
                       <span
                         className={`text-sm font-medium ${
@@ -170,18 +216,25 @@ export default function Seven({
               ))}
             </div>
 
-            <a
-              href={appRoutes.cadastro}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`mt-auto block rounded-full px-6 py-3 text-center font-semibold transition-colors ${
-                plan.highlighted
-                  ? "mt-8 bg-white text-[#0b1a4a] hover:bg-white/90"
-                  : "mt-8 bg-azul text-sobre-azul hover:bg-royal"
-              }`}
-            >
-              Contratar
-            </a>
+            {"informational" in plan ? (
+              <p className="mt-auto pt-8 text-sm text-tinta/55">
+                Subir de pool sai mais barato que pagar excedente — a gente
+                avisa antes de a carteira chegar lá.
+              </p>
+            ) : (
+              <a
+                href={appRoutes.cadastro}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-auto block rounded-full px-6 py-3 text-center font-semibold transition-colors ${
+                  plan.highlighted
+                    ? "mt-8 bg-white text-[#0b1a4a] hover:bg-white/90"
+                    : "mt-8 bg-azul text-sobre-azul hover:bg-royal"
+                }`}
+              >
+                Contratar
+              </a>
+            )}
           </div>
         ))}
       </div>
