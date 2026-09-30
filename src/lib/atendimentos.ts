@@ -9,13 +9,38 @@ import { empresa, siteUrl } from "@/lib/site";
  * exatamente igual, em um site sob domínio conhecido. Um nome sem essa
  * correlação é recusado ou fica preso em análise.
  *
- * Cada número atendido pela léia nasce dentro da conta da operadora
- * (`empresa.razaoSocial`), mas usa um nome de exibição próprio. Esta rota dá
- * a cada um deles a página pública que a análise da Meta procura.
+ * Cada número usa um nome de exibição próprio, e esta rota dá a cada um deles
+ * a página pública que a análise da Meta procura.
  *
  * >>> Para publicar um novo atendimento, acrescente um item a `atendimentos`. <<<
  * O `slug` vira a URL (/c/{slug}), entra no sitemap e é gerado no build.
  */
+
+/**
+ * O dono do número perante a Meta, quando não é a operadora.
+ *
+ * Um número chega à léia de dois jeitos, e a página afirma coisas diferentes
+ * em cada um:
+ *
+ * - **Sem `titular`**: o número foi cadastrado na conta de WhatsApp da
+ *   operadora (`empresa.razaoSocial`). A página diz que é ela quem o opera.
+ * - **Com `titular`**: o número entrou por coexistência e continua na conta
+ *   empresarial do próprio cliente na Meta. A página diz que o número é dele
+ *   e que a léia fornece a tecnologia. Dizer que a operadora opera um número
+ *   que não é dela seria falso — e é esse vínculo que a análise confere.
+ *
+ * No cadastro da coexistência a Meta pede o site da empresa: o endereço a
+ * informar é o desta página, com `www`.
+ */
+export type Titular = {
+  /** Nome da empresa exatamente como o cliente o registra na Meta. */
+  nome: string;
+  /** Opcionais: ausentes, a página omite a linha. Preencher quando o cliente informar. */
+  cnpj?: string;
+  cidade?: string;
+  estado?: string;
+};
+
 export type Atendimento = {
   /** Segmento da URL. Minúsculas, sem acento, palavras separadas por hífen. */
   slug: string;
@@ -29,6 +54,8 @@ export type Atendimento = {
   telefone: string;
   /** Quem é atendido por este número, em uma frase. */
   descricao: string;
+  /** Ausente quando o número é da operadora. Ver `Titular`. */
+  titular?: Titular;
 };
 
 export const atendimentos: readonly Atendimento[] = [
@@ -38,6 +65,16 @@ export const atendimentos: readonly Atendimento[] = [
     telefone: "+55 81 95168-8045",
     descricao:
       "Canal de atendimento da léia para demonstrações da plataforma e suporte a administradoras de condomínios.",
+  },
+  {
+    slug: "rfc-sindicatura-profissional",
+    nomeExibicao: "RFC- Sindicatura Profissional",
+    telefone: "+55 34 9222-5991",
+    descricao:
+      "Canal de atendimento, pelo WhatsApp, aos moradores dos condomínios atendidos pela RFC- Sindicatura Profissional.",
+    titular: {
+      nome: "RFC- Sindicatura Profissional",
+    },
   },
 ] as const;
 
@@ -54,11 +91,39 @@ export function urlAtendimento(slug: string): string {
 /**
  * Dados estruturados do atendimento (JSON-LD).
  *
- * Declara, de forma legível por máquina, que o nome de exibição pertence à
- * operadora — o mesmo vínculo que a página afirma em texto. Reforça a
- * correlação que a análise da Meta procura.
+ * Declara, de forma legível por máquina, o mesmo vínculo que a página afirma
+ * em texto — reforça a correlação que a análise da Meta procura. Com
+ * `titular`, a organização é o cliente e a operadora não entra como
+ * `parentOrganization`: ela fornece a tecnologia, não é dona do número.
  */
 export function jsonLdAtendimento(atendimento: Atendimento) {
+  const { titular } = atendimento;
+
+  if (titular) {
+    return {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: titular.nome,
+      ...(titular.nome !== atendimento.nomeExibicao
+        ? { alternateName: atendimento.nomeExibicao }
+        : {}),
+      url: urlAtendimento(atendimento.slug),
+      telephone: atendimento.telefone,
+      description: atendimento.descricao,
+      ...(titular.cnpj ? { taxID: titular.cnpj } : {}),
+      ...(titular.cidade
+        ? {
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: titular.cidade,
+              addressRegion: titular.estado,
+              addressCountry: "BR",
+            },
+          }
+        : {}),
+    };
+  }
+
   return {
     "@context": "https://schema.org",
     "@type": "Organization",

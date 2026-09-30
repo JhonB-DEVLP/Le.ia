@@ -7,6 +7,7 @@ import {
   atendimentos,
   jsonLdAtendimento,
   urlAtendimento,
+  type Titular,
 } from "@/lib/atendimentos";
 import { appUrl, contatoEmail, empresa, siteUrl } from "@/lib/site";
 
@@ -32,7 +33,9 @@ export async function generateMetadata({
 
   // O nome de exibição abre o título: é o texto que a análise da Meta procura.
   const title = `${atendimento.nomeExibicao} | WhatsApp oficial | léia`;
-  const description = `${atendimento.nomeExibicao} é o nome de exibição do WhatsApp ${atendimento.telefone}, operado por ${empresa.razaoSocial} (CNPJ ${empresa.cnpj}) na plataforma léia.`;
+  const description = atendimento.titular
+    ? `${atendimento.nomeExibicao} é o nome de exibição do WhatsApp ${atendimento.telefone}, de ${atendimento.titular.nome}, com atendimento pela plataforma léia.`
+    : `${atendimento.nomeExibicao} é o nome de exibição do WhatsApp ${atendimento.telefone}, operado por ${empresa.razaoSocial} (CNPJ ${empresa.cnpj}) na plataforma léia.`;
   const url = `/c/${atendimento.slug}`;
 
   return {
@@ -137,67 +140,11 @@ export default async function AtendimentoPage({
               </dl>
             </section>
 
-            <section className="flex flex-col gap-4">
-              <h2 className="display text-xl text-tinta sm:text-2xl">
-                Quem opera este número
-              </h2>
-              <p>
-                Este canal é operado por{" "}
-                <strong className="font-medium text-tinta">
-                  {empresa.razaoSocial}
-                </strong>
-                , empresa brasileira sediada em {empresa.endereco.cidade},{" "}
-                {empresa.endereco.estado}, responsável pela plataforma léia.
-              </p>
-
-              <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
-                <div>
-                  <dt className="text-sm font-semibold text-tinta">
-                    Razão social
-                  </dt>
-                  <dd className="mt-1">{empresa.razaoSocial}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-semibold text-tinta">CNPJ</dt>
-                  <dd className="mt-1">{empresa.cnpj}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-semibold text-tinta">Endereço</dt>
-                  <dd className="mt-1">
-                    <address className="not-italic">
-                      {empresa.endereco.logradouro}
-                      <br />
-                      {empresa.endereco.bairro}, {empresa.endereco.cidade} —{" "}
-                      {empresa.endereco.estado}
-                      <br />
-                      {empresa.endereco.pais}
-                    </address>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-semibold text-tinta">E-mail</dt>
-                  <dd className="mt-1">
-                    <a
-                      href={`mailto:${contatoEmail}`}
-                      className="font-medium text-azul hover:underline"
-                    >
-                      {contatoEmail}
-                    </a>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-semibold text-tinta">Site</dt>
-                  <dd className="mt-1">
-                    <a
-                      href={siteUrl}
-                      className="font-medium text-azul hover:underline"
-                    >
-                      {siteUrl.replace("https://", "")}
-                    </a>
-                  </dd>
-                </div>
-              </dl>
-            </section>
+            {atendimento.titular ? (
+              <SecaoTitular titular={atendimento.titular} />
+            ) : (
+              <SecaoOperadora />
+            )}
 
             <section className="flex flex-col gap-4">
               <h2 className="display text-xl text-tinta sm:text-2xl">
@@ -206,7 +153,11 @@ export default async function AtendimentoPage({
               <p>
                 O atendimento é feito por inteligência artificial, que se
                 identifica como tal, e responde com base nos documentos
-                cadastrados pela administradora — regimento interno, convenção,
+                cadastrados{" "}
+                {atendimento.titular
+                  ? `por ${atendimento.titular.nome}`
+                  : "pela administradora"}{" "}
+                — regimento interno, convenção,
                 horários de áreas comuns e comunicados. Quando a situação exige
                 uma pessoa, a conversa é encaminhada à equipe responsável, que
                 assume o atendimento pelo painel em{" "}
@@ -235,7 +186,7 @@ export default async function AtendimentoPage({
                 >
                   Termos de Uso
                 </a>
-                . Mais sobre a operadora em{" "}
+                . Mais sobre a plataforma em{" "}
                 <a
                   href="/sobre"
                   className="font-medium text-azul hover:underline"
@@ -249,6 +200,123 @@ export default async function AtendimentoPage({
         </div>
       </main>
       <Footer />
+    </>
+  );
+}
+
+/** Número na conta de WhatsApp da operadora: é ela quem o opera. */
+function SecaoOperadora() {
+  return (
+    <section className="flex flex-col gap-4">
+      <h2 className="display text-xl text-tinta sm:text-2xl">
+        Quem opera este número
+      </h2>
+      <p>
+        Este canal é operado por{" "}
+        <strong className="font-medium text-tinta">{empresa.razaoSocial}</strong>
+        , empresa brasileira sediada em {empresa.endereco.cidade},{" "}
+        {empresa.endereco.estado}, responsável pela plataforma léia.
+      </p>
+
+      <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
+        <div>
+          <dt className="text-sm font-semibold text-tinta">Razão social</dt>
+          <dd className="mt-1">{empresa.razaoSocial}</dd>
+        </div>
+        <div>
+          <dt className="text-sm font-semibold text-tinta">CNPJ</dt>
+          <dd className="mt-1">{empresa.cnpj}</dd>
+        </div>
+        <div>
+          <dt className="text-sm font-semibold text-tinta">Endereço</dt>
+          <dd className="mt-1">
+            <address className="not-italic">
+              {empresa.endereco.logradouro}
+              <br />
+              {empresa.endereco.bairro}, {empresa.endereco.cidade} —{" "}
+              {empresa.endereco.estado}
+              <br />
+              {empresa.endereco.pais}
+            </address>
+          </dd>
+        </div>
+        <div>
+          <dt className="text-sm font-semibold text-tinta">E-mail</dt>
+          <dd className="mt-1">
+            <a
+              href={`mailto:${contatoEmail}`}
+              className="font-medium text-azul hover:underline"
+            >
+              {contatoEmail}
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt className="text-sm font-semibold text-tinta">Site</dt>
+          <dd className="mt-1">
+            <a href={siteUrl} className="font-medium text-azul hover:underline">
+              {siteUrl.replace("https://", "")}
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </section>
+  );
+}
+
+/**
+ * Número do próprio cliente (coexistência): ele é o titular, e a operadora
+ * aparece só como fornecedora da tecnologia.
+ */
+function SecaoTitular({ titular }: { titular: Titular }) {
+  return (
+    <>
+      <section className="flex flex-col gap-4">
+        <h2 className="display text-xl text-tinta sm:text-2xl">
+          Titular deste número
+        </h2>
+        <p>
+          O titular deste número de WhatsApp é{" "}
+          <strong className="font-medium text-tinta">{titular.nome}</strong>,
+          que o usa no atendimento aos moradores dos condomínios que atende.
+        </p>
+
+        <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
+          <div>
+            <dt className="text-sm font-semibold text-tinta">Empresa</dt>
+            <dd className="mt-1">{titular.nome}</dd>
+          </div>
+          {titular.cnpj && (
+            <div>
+              <dt className="text-sm font-semibold text-tinta">CNPJ</dt>
+              <dd className="mt-1">{titular.cnpj}</dd>
+            </div>
+          )}
+          {titular.cidade && (
+            <div>
+              <dt className="text-sm font-semibold text-tinta">Cidade</dt>
+              <dd className="mt-1">
+                {titular.cidade}
+                {titular.estado && ` — ${titular.estado}`}
+              </dd>
+            </div>
+          )}
+        </dl>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="display text-xl text-tinta sm:text-2xl">
+          Tecnologia do atendimento
+        </h2>
+        <p>
+          O atendimento automático deste número usa a léia, plataforma da{" "}
+          <strong className="font-medium text-tinta">{empresa.razaoSocial}</strong>{" "}
+          (CNPJ {empresa.cnpj}), sediada em {empresa.endereco.cidade},{" "}
+          {empresa.endereco.estado}. A {empresa.razaoSocial} fornece a
+          tecnologia; o número e a conta de WhatsApp continuam sendo de{" "}
+          {titular.nome}.
+        </p>
+      </section>
     </>
   );
 }
