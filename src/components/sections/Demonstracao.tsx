@@ -9,8 +9,12 @@ import { gerarQrCode } from "@/lib/qrcode";
   anterior era um bitmap de 592 KB com o QR "queimado" dentro: trocar o link
   exigia refazer a imagem e o código borrava ao ampliar. Aqui o QR é gerado
   em tempo de build a partir de `linkDemonstracao`.
+
+  O número é o da léia de demonstração (+55 81 95168-8045), na conta de
+  homologação do Edgar — não o comercial de `whatsappNumber`, que é de quem
+  vende. Quem toca aqui conversa com a assistente, não com a equipe.
 */
-const linkDemonstracao = "https://wa.me/message/UVUN6GWKNGWWD1";
+const linkDemonstracao = "https://wa.me/5581951688045";
 
 /** Margem obrigatória ao redor do código, em módulos. */
 const MARGEM = 2;
