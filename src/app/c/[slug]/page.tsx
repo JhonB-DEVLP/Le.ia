@@ -33,9 +33,12 @@ export async function generateMetadata({
 
   // O nome de exibição abre o título: é o texto que a análise da Meta procura.
   const title = `${atendimento.nomeExibicao} | WhatsApp oficial | léia`;
+  const whatsapp = atendimento.telefone
+    ? `do WhatsApp ${atendimento.telefone}`
+    : "do canal de WhatsApp";
   const description = atendimento.titular
-    ? `${atendimento.nomeExibicao} é o nome de exibição do WhatsApp ${atendimento.telefone}, de ${atendimento.titular.nome}, com atendimento pela plataforma léia.`
-    : `${atendimento.nomeExibicao} é o nome de exibição do WhatsApp ${atendimento.telefone}, operado por ${empresa.razaoSocial} (CNPJ ${empresa.cnpj}) na plataforma léia.`;
+    ? `${atendimento.nomeExibicao} é o nome de exibição ${whatsapp}, de ${atendimento.titular.nome}, com atendimento pela plataforma léia.`
+    : `${atendimento.nomeExibicao} é o nome de exibição ${whatsapp}, operado por ${empresa.razaoSocial} (CNPJ ${empresa.cnpj}) na plataforma léia.`;
   const url = `/c/${atendimento.slug}`;
 
   return {
@@ -108,10 +111,17 @@ export default async function AtendimentoPage({
                 <strong className="font-medium text-tinta">
                   {atendimento.nomeExibicao}
                 </strong>{" "}
-                identifica o número de WhatsApp{" "}
-                <strong className="font-medium text-tinta">
-                  {atendimento.telefone}
-                </strong>{" "}
+                identifica{" "}
+                {atendimento.telefone ? (
+                  <>
+                    o número de WhatsApp{" "}
+                    <strong className="font-medium text-tinta">
+                      {atendimento.telefone}
+                    </strong>
+                  </>
+                ) : (
+                  "este canal de WhatsApp"
+                )}{" "}
                 na plataforma léia. É o nome que aparece ao morador quando ele
                 recebe ou envia uma mensagem por este número.
               </p>
@@ -123,12 +133,14 @@ export default async function AtendimentoPage({
                   </dt>
                   <dd className="mt-1">{atendimento.nomeExibicao}</dd>
                 </div>
-                <div>
-                  <dt className="text-sm font-semibold text-tinta">
-                    Número de WhatsApp
-                  </dt>
-                  <dd className="mt-1">{atendimento.telefone}</dd>
-                </div>
+                {atendimento.telefone && (
+                  <div>
+                    <dt className="text-sm font-semibold text-tinta">
+                      Número de WhatsApp
+                    </dt>
+                    <dd className="mt-1">{atendimento.telefone}</dd>
+                  </div>
+                )}
                 <div>
                   <dt className="text-sm font-semibold text-tinta">
                     Página oficial deste canal
@@ -278,7 +290,7 @@ function SecaoTitular({ titular }: { titular: Titular }) {
         <p>
           O titular deste número de WhatsApp é{" "}
           <strong className="font-medium text-tinta">{titular.nome}</strong>,
-          que o usa no atendimento aos moradores dos condomínios que atende.
+          que o usa no atendimento aos moradores.
         </p>
 
         <dl className="mt-2 flex flex-col gap-4 rounded-2xl border border-borda p-6">
@@ -286,19 +298,65 @@ function SecaoTitular({ titular }: { titular: Titular }) {
             <dt className="text-sm font-semibold text-tinta">Empresa</dt>
             <dd className="mt-1">{titular.nome}</dd>
           </div>
+          {titular.razaoSocial && (
+            <div>
+              <dt className="text-sm font-semibold text-tinta">Razão social</dt>
+              <dd className="mt-1">{titular.razaoSocial}</dd>
+            </div>
+          )}
           {titular.cnpj && (
             <div>
               <dt className="text-sm font-semibold text-tinta">CNPJ</dt>
               <dd className="mt-1">{titular.cnpj}</dd>
             </div>
           )}
-          {titular.cidade && (
+          {titular.logradouro ? (
             <div>
-              <dt className="text-sm font-semibold text-tinta">Cidade</dt>
+              <dt className="text-sm font-semibold text-tinta">Endereço</dt>
               <dd className="mt-1">
-                {titular.cidade}
-                {titular.estado && ` — ${titular.estado}`}
+                <address className="not-italic">
+                  {titular.logradouro}
+                  <br />
+                  {titular.bairro && `${titular.bairro}, `}
+                  {titular.cidade}
+                  {titular.estado && ` — ${titular.estado}`}
+                  {titular.cep && (
+                    <>
+                      <br />
+                      CEP {titular.cep}
+                    </>
+                  )}
+                </address>
               </dd>
+            </div>
+          ) : (
+            titular.cidade && (
+              <div>
+                <dt className="text-sm font-semibold text-tinta">Cidade</dt>
+                <dd className="mt-1">
+                  {titular.cidade}
+                  {titular.estado && ` — ${titular.estado}`}
+                </dd>
+              </div>
+            )
+          )}
+          {titular.email && (
+            <div>
+              <dt className="text-sm font-semibold text-tinta">E-mail</dt>
+              <dd className="mt-1">
+                <a
+                  href={`mailto:${titular.email}`}
+                  className="font-medium text-azul hover:underline"
+                >
+                  {titular.email}
+                </a>
+              </dd>
+            </div>
+          )}
+          {titular.telefone && (
+            <div>
+              <dt className="text-sm font-semibold text-tinta">Telefone</dt>
+              <dd className="mt-1">{titular.telefone}</dd>
             </div>
           )}
         </dl>

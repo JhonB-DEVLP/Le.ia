@@ -35,10 +35,21 @@ import { empresa, siteUrl } from "@/lib/site";
 export type Titular = {
   /** Nome da empresa exatamente como o cliente o registra na Meta. */
   nome: string;
-  /** Opcionais: ausentes, a página omite a linha. Preencher quando o cliente informar. */
+  /**
+   * Opcionais: ausentes, a página omite a linha. Preencher quando o cliente informar.
+   * A razão social vai como consta no cartão do CNPJ (em geral, em maiúsculas):
+   * é o documento que a verificação da empresa na Meta confere.
+   */
+  razaoSocial?: string;
   cnpj?: string;
+  logradouro?: string;
+  bairro?: string;
   cidade?: string;
   estado?: string;
+  cep?: string;
+  email?: string;
+  /** Telefone fixo do titular, que não é o número de WhatsApp do canal. */
+  telefone?: string;
 };
 
 export type Atendimento = {
@@ -50,8 +61,12 @@ export type Atendimento = {
    * é essa comparação que a análise faz. Não "arrumar" maiúsculas nem acentos.
    */
   nomeExibicao: string;
-  /** Número em formato internacional legível, como a Meta o exibe. */
-  telefone: string;
+  /**
+   * Número em formato internacional legível, como a Meta o exibe.
+   * Ausente enquanto a linha não existe: a Meta pede o site da empresa ao
+   * criar a conta, antes de o número ser cadastrado nela.
+   */
+  telefone?: string;
   /** Quem é atendido por este número, em uma frase. */
   descricao: string;
   /** Ausente quando o número é da operadora. Ver `Titular`. */
@@ -74,6 +89,24 @@ export const atendimentos: readonly Atendimento[] = [
       "Canal de atendimento, pelo WhatsApp, aos moradores dos condomínios atendidos pela RFC- Sindicatura Profissional.",
     titular: {
       nome: "RFC- Sindicatura Profissional",
+    },
+  },
+  {
+    slug: "condominio-jardins-des-arbres",
+    nomeExibicao: "Condomínio Jardins des Arbres",
+    descricao:
+      "Canal de atendimento, pelo WhatsApp, aos moradores do Condomínio Jardins des Arbres, no Brooklin Paulista, em São Paulo.",
+    titular: {
+      nome: "Condomínio Jardins des Arbres",
+      razaoSocial: "CONDOMINIO JARDINS DES ARBRES",
+      cnpj: "07.896.223/0001-28",
+      logradouro: "Rua Princesa Isabel, 17",
+      bairro: "Brooklin Paulista",
+      cidade: "São Paulo",
+      estado: "SP",
+      cep: "04601-000",
+      email: "adm@jardinsdesarbres.com.br",
+      telefone: "+55 11 5092-5238",
     },
   },
 ] as const;
@@ -107,16 +140,24 @@ export function jsonLdAtendimento(atendimento: Atendimento) {
       ...(titular.nome !== atendimento.nomeExibicao
         ? { alternateName: atendimento.nomeExibicao }
         : {}),
+      ...(titular.razaoSocial ? { legalName: titular.razaoSocial } : {}),
       url: urlAtendimento(atendimento.slug),
-      telephone: atendimento.telefone,
+      ...(atendimento.telefone || titular.telefone
+        ? { telephone: atendimento.telefone ?? titular.telefone }
+        : {}),
+      ...(titular.email ? { email: titular.email } : {}),
       description: atendimento.descricao,
       ...(titular.cnpj ? { taxID: titular.cnpj } : {}),
       ...(titular.cidade
         ? {
             address: {
               "@type": "PostalAddress",
+              ...(titular.logradouro
+                ? { streetAddress: titular.logradouro }
+                : {}),
               addressLocality: titular.cidade,
               addressRegion: titular.estado,
+              ...(titular.cep ? { postalCode: titular.cep } : {}),
               addressCountry: "BR",
             },
           }
@@ -129,7 +170,7 @@ export function jsonLdAtendimento(atendimento: Atendimento) {
     "@type": "Organization",
     name: atendimento.nomeExibicao,
     url: urlAtendimento(atendimento.slug),
-    telephone: atendimento.telefone,
+    ...(atendimento.telefone ? { telephone: atendimento.telefone } : {}),
     description: atendimento.descricao,
     parentOrganization: {
       "@type": "Organization",
