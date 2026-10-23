@@ -93,7 +93,7 @@ export const atendimentos: readonly Atendimento[] = [
   },
   {
     slug: "condominio-jardins-des-arbres",
-    nomeExibicao: "Condomínio Jardins des Arbres",
+    nomeExibicao: "Condominio Jardins Des Arbres",
     telefone: "+55 11 95504-7057",
     descricao:
       "Canal de atendimento, pelo WhatsApp, aos moradores do Condomínio Jardins des Arbres, no Brooklin Paulista, em São Paulo.",
